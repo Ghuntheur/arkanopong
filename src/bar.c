@@ -26,3 +26,15 @@ void barDraw(Bar *bar){
 		glVertex2f(x-w, y-h);
 	glEnd();
 }
+
+void barMove(Bar *bar, int key){
+	bar->center.x += (key == SDLK_RIGHT) ? 60 : -60;
+
+	if(bar->center.x - bar->width/2 < -WINDOW_WIDTH/2){
+		bar->center.x = -WINDOW_WIDTH/2 + bar->width/2;
+	}
+	if(bar->center.x + bar->width/2 > WINDOW_WIDTH/2){
+		bar->center.x = WINDOW_WIDTH/2 - bar->width/2;
+	}	
+	
+}

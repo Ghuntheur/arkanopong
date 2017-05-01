@@ -30,7 +30,7 @@ void reshape() {
 }
 
 void setVideoMode() {
-	if(NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE)) {
+	if(NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL)) {
     	fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
     	exit(EXIT_FAILURE);
   	}
@@ -60,10 +60,14 @@ int main(int argc, char** argv) {
     	glClear(GL_COLOR_BUFFER_BIT);
    		
 	    ballRender(&balle);
-        barDraw(&barre);
-        
+        barDraw(&barre);        
 
-  		SDL_GL_SwapBuffers(); 	
+  		SDL_GL_SwapBuffers(); 
+
+        SDL_EnableKeyRepeat(1, 2);
+
+        /* Répétition des touches*/
+       	
 
 	    SDL_Event ev;
 	    while(SDL_PollEvent(&ev)){
@@ -71,14 +75,20 @@ int main(int argc, char** argv) {
 	    	    loop = 0;
 	        	break;
 	      	}
-	      
+
 	      	switch(ev.type){          
-	        	case SDL_VIDEORESIZE:
-	          		WINDOW_WIDTH = ev.resize.w;
-	          		WINDOW_HEIGHT = ev.resize.h;
-	          		setVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT);
-	          		break;
-		       
+	        	
+                /**
+                 * TODO: LAISSE TOUCHE ENFONCEE
+                 */
+                case SDL_KEYDOWN:
+                    if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
+                        barMove(&barre, ev.key.keysym.sym);
+                    }
+                    break;
+
+                case 
+
 		        default:
 		        	break;
 	      	}

@@ -2,10 +2,14 @@
 #define BAR_H_
 
 #include <math.h>
+#include <SDL/SDL.h>
 #include <GL/gl.h>
 
 #include "geometry.h"
 #include "color.h"
+
+extern int WINDOW_WIDTH;
+extern int WINDOW_HEIGHT;
 
 typedef struct Bar{
 	Point center;
@@ -17,5 +21,7 @@ typedef struct Bar{
 Bar newBar(Point center, float width, float height, Color color);
 
 void barDraw(Bar *bar);
+
+void barMove(Bar *bar, int key);
 
 #endif
