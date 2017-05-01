@@ -1,10 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #include <SDL/SDL.h>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
+
+#include "ball.h"
 
 
 /**
@@ -47,19 +50,23 @@ int main(int argc, char** argv) {
   	while(loop) {
     	Uint32 startTime = SDL_GetTicks();
 
-   /* 	glClear(GL_COLOR_BUFFER_BIT);
+    	glClear(GL_COLOR_BUFFER_BIT);
 
 	    glColor3ub(255, 0, 0);
 
-	    glPushMatrix();
+	    /*glPushMatrix();
 	    glScalef(0.3f, 0.3f, 0.3f);
 
-	    glPopMatrix();
+	    glPopMatrix();*/
 
-   
+   		Ball balle = ballCreate(PointXY(0, 0), VectorXY(0, 0), 0, 10);
+	    ballDrawing();
 
-  		SDL_GL_SwapBuffers();*/
-	    /* ****** */    
+
+  		SDL_GL_SwapBuffers();
+	    /* ****** */
+
+	 	
 
 	    SDL_Event e;
 	    while(SDL_PollEvent(&e)) {

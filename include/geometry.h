@@ -1,6 +1,7 @@
 #ifndef GEOMETRY_H_
 #define GEOMETRY_H_
 
+#include <math.h>
 
 /**
  * POINT
