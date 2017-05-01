@@ -18,11 +18,14 @@ static unsigned int WINDOW_HEIGHT = 800;
 static const unsigned int BIT_PER_PIXEL = 32;
 static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
+static const float SCALE_X = 800.;
+static const float SCALE_Y = 800.;
+
 void reshape() {
   	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
   	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-  	gluOrtho2D(-1., 1., -1., 1.);
+  	gluOrtho2D(-SCALE_X, SCALE_X, -SCALE_Y, SCALE_Y);
 }
 
 void setVideoMode() {
@@ -52,27 +55,23 @@ int main(int argc, char** argv) {
 
     	glClear(GL_COLOR_BUFFER_BIT);
 
-
-   		Ball balle = newBall(newPoint(0, 0), newVector(0, 0), 0, 10, newColor(255, 255, 255));
+   		Ball balle = newBall(newPoint(0, 0), newVector(.5, -.2), 60, newColor(255, 255, 255));
 	    ballDrawing(&balle);
 
+  		SDL_GL_SwapBuffers(); 	
 
-  		SDL_GL_SwapBuffers();
-	    /* ****** */
+	    SDL_Event ev;
+	    while(SDL_PollEvent(&ev)){
 
-	 	
-
-	    SDL_Event e;
-	    while(SDL_PollEvent(&e)) {
-	    	if(e.type == SDL_QUIT) {
+	    	if(ev.type == SDL_QUIT) {
 	    	    loop = 0;
 	        	break;
 	      	}
 	      
-	      	switch(e.type) {          
+	      	switch(ev.type) {          
 	        	case SDL_VIDEORESIZE:
-	          		WINDOW_WIDTH = e.resize.w;
-	          		WINDOW_HEIGHT = e.resize.h;
+	          		WINDOW_WIDTH = ev.resize.w;
+	          		WINDOW_HEIGHT = ev.resize.h;
 	          		setVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT);
 	          		break;
 

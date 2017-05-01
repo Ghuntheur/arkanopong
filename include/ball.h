@@ -10,12 +10,11 @@
 typedef struct Ball{
 	Point center;
 	Vector speed;
-	float speedValue;
 	float radius;
 	Color color;
 }Ball;
 
-Ball newBall(Point center, Vector speed, float speedValue, float radius, Color color);
+Ball newBall(Point center, Vector speed, float radius, Color color);
 
 void ballDrawing();
 
