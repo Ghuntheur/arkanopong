@@ -9,6 +9,7 @@
 
 #include "ball.h"
 #include "bar.h"
+#include "player.h"
 
 /**
  * VARIABLES GLOBALES A TOUS LES FICHIERS
@@ -42,25 +43,40 @@ void setVideoMode() {
 int main(int argc, char** argv) {
   
   	if(SDL_Init(SDL_INIT_VIDEO) == -1){
-      fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
+        fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
     	return EXIT_FAILURE;
   	}
     
-  	setVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT);
+  	setVideoMode();
 
   	SDL_WM_SetCaption("Arkanopong", NULL);
 
-  	Ball balle = newBall(newPoint(0, 0), newVector(1, 0), 30, newColor(255, 255, 255));
-    Bar barre  = newBar(newPoint(0, -360), 100, 20, newColor(50, 50, 50));
-
+    Player p1 = newPlayer(
+        newBall(newPoint(0, -300), newVector(2, 1), 30, newColor(255, 0, 0)),
+        newBar(newPoint(0, -360), 100, 20, newColor(255, 0, 0))
+    );
+    Player p2 = newPlayer(
+        newBall(newPoint(0, 300), newVector(2, 1), 30, newColor(0, 255, 0)),
+        newBar(newPoint(0, 360), 100, 20, newColor(0, 255, 0))
+    );
+  	
   	int loop = 1;
   	while(loop){
     	Uint32 startTime = SDL_GetTicks();
 
     	glClear(GL_COLOR_BUFFER_BIT);
-   		
-	    ballRender(&balle);
-        barDraw(&barre);        
+
+        /**
+         * Player 1
+         */
+        ballRender(&p1.ball);
+        barDraw(&p1.bar);     
+
+        /**
+         * Player 2
+         */
+        ballRender(&p2.ball);
+        barDraw(&p2.bar);
 
   		SDL_GL_SwapBuffers();
 
@@ -78,7 +94,10 @@ int main(int argc, char** argv) {
                  */
                 case SDL_KEYDOWN:
                     if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
-                        barMove(&barre, ev.key.keysym.sym);
+                        barMove(&p1.bar, ev.key.keysym.sym);
+                    }
+                    if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
+                        barMove(&p2.bar, ev.key.keysym.sym);
                     }
                     break;
 
