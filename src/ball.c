@@ -15,16 +15,26 @@ Ball newBall(Point center, Vector speed, float radius, Color color){
 	return b;
 }
 
-void ballDrawing(Ball *balle){
+void ballDrawing(Ball *ball){
 	int i;
 	int precision = 360;
 	
 	glBegin(GL_POLYGON);
-	glColor3ub(balle->color.r, balle->color.g, balle->color.b);
+	glColor3ub(ball->color.r, ball->color.g, ball->color.b);
 
 	for(i=0; i<precision; i++){
 		float rad = 2*i*M_PI/precision;
-		glVertex2f(balle->center.x + cos(rad) * balle->radius, balle->center.y + sin(rad) * balle->radius);
+		glVertex2f(ball->center.x + cos(rad) * ball->radius, ball->center.y + sin(rad) * ball->radius);
 	}
 	glEnd();
+}
+
+void ballRun(Ball *ball){
+	ball->center.x += ball->speed.x;
+	ball->center.y += ball->speed.y;
+}
+
+void ballDisplay(Ball *ball){
+	ballRun(ball);
+	ballDrawing(ball);
 }

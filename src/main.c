@@ -47,40 +47,33 @@ int main(int argc, char** argv) {
    
   	setVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-  	SDL_WM_SetCaption("Arkanopong", NULL);	
+  	SDL_WM_SetCaption("Arkanopong", NULL);
+
+  	Ball balle = newBall(newPoint(0, 0), newVector(1, 1), 60, newColor(255, 255, 255));
 
   	int loop = 1;
   	while(loop) {
     	Uint32 startTime = SDL_GetTicks();
 
     	glClear(GL_COLOR_BUFFER_BIT);
-
-   		Ball balle = newBall(newPoint(0, 0), newVector(.5, -.2), 60, newColor(255, 255, 255));
-	    ballDrawing(&balle);
+   		
+	    ballDisplay(&balle);
 
   		SDL_GL_SwapBuffers(); 	
 
 	    SDL_Event ev;
 	    while(SDL_PollEvent(&ev)){
-
-	    	if(ev.type == SDL_QUIT) {
+	    	if(ev.type == SDL_QUIT){
 	    	    loop = 0;
 	        	break;
 	      	}
 	      
-	      	switch(ev.type) {          
+	      	switch(ev.type){          
 	        	case SDL_VIDEORESIZE:
 	          		WINDOW_WIDTH = ev.resize.w;
 	          		WINDOW_HEIGHT = ev.resize.h;
 	          		setVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT);
 	          		break;
-
-	        	/*case SDL_KEYDOWN:
-			        if (e.key.keysym.sym == 'q' || e.key.keysym.sym == SDLK_ESCAPE) {
-			    	    loop = 0;
-			        }
-			        break;
-		        */
 		       
 		        default:
 		        	break;
@@ -88,7 +81,7 @@ int main(int argc, char** argv) {
 	    }
     
     	Uint32 elapsedTime = SDL_GetTicks() - startTime;
-    	if(elapsedTime < FRAMERATE_MILLISECONDS) {
+    	if(elapsedTime < FRAMERATE_MILLISECONDS){
       		SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
     	}
   	}
