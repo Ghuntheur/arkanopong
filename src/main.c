@@ -9,17 +9,13 @@
 
 #include "ball.h"
 
+int WINDOW_WIDTH = 800;
+int WINDOW_HEIGHT = 800;
+const unsigned int BIT_PER_PIXEL = 32;
+const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
-/**
- * STATIC VARTIABLES
- */
-static unsigned int WINDOW_WIDTH = 800;
-static unsigned int WINDOW_HEIGHT = 800;
-static const unsigned int BIT_PER_PIXEL = 32;
-static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
-
-static const float SCALE_X = 800.;
-static const float SCALE_Y = 800.;
+const float SCALE_X = 400.;
+const float SCALE_Y = 400.;
 
 void reshape() {
   	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -49,7 +45,7 @@ int main(int argc, char** argv) {
 
   	SDL_WM_SetCaption("Arkanopong", NULL);
 
-  	Ball balle = newBall(newPoint(0, 0), newVector(1, 1), 60, newColor(255, 255, 255));
+  	Ball balle = newBall(newPoint(0, 0), newVector(0, 1), 30, newColor(255, 255, 255));
 
   	int loop = 1;
   	while(loop) {

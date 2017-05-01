@@ -7,6 +7,9 @@
 #include "geometry.h"
 #include "color.h"
 
+extern int WINDOW_WIDTH;
+extern int WINDOW_HEIGHT;
+
 typedef struct Ball{
 	Point center;
 	Vector speed;

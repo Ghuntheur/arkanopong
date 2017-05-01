@@ -1,7 +1,5 @@
 #define _GNU_SOURCE
 
-#include <stdio.h>
-
 #include "ball.h"
 
 Ball newBall(Point center, Vector speed, float radius, Color color){
@@ -30,6 +28,12 @@ void ballDrawing(Ball *ball){
 }
 
 void ballRun(Ball *ball){
+	if(ball->center.x - ball->radius <= -WINDOW_WIDTH || ball->center.x + ball->radius > WINDOW_WIDTH){
+		ball->speed.x *= -1;
+	}
+	if(ball->center.y - ball->radius <= -WINDOW_HEIGHT || ball->center.y + ball->radius > WINDOW_HEIGHT){
+		ball->speed.y *= -1;
+	}
 	ball->center.x += ball->speed.x;
 	ball->center.y += ball->speed.y;
 }
