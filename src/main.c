@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
       fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
     	return EXIT_FAILURE;
   	}
-   
+    
   	setVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT);
 
   	SDL_WM_SetCaption("Arkanopong", NULL);
@@ -62,12 +62,7 @@ int main(int argc, char** argv) {
 	    ballRender(&balle);
         barDraw(&barre);        
 
-  		SDL_GL_SwapBuffers(); 
-
-        SDL_EnableKeyRepeat(1, 2);
-
-        /* Répétition des touches*/
-       	
+  		SDL_GL_SwapBuffers();
 
 	    SDL_Event ev;
 	    while(SDL_PollEvent(&ev)){
@@ -86,8 +81,6 @@ int main(int argc, char** argv) {
                         barMove(&barre, ev.key.keysym.sym);
                     }
                     break;
-
-                case 
 
 		        default:
 		        	break;
