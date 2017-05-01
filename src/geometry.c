@@ -4,7 +4,7 @@
  * POINTS
  */
 
-Point PointXY(float x, float y){
+Point newPoint(float x, float y){
 	Point p;
 
 	p.x = x;
@@ -17,7 +17,7 @@ Point PointXY(float x, float y){
  * VECTEURS
  */
 
-Vector VectorXY(float x, float y){
+Vector newVector(float x, float y){
 	Vector v;
 
 	v.x = x;

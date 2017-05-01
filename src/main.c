@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
 
 	    glPopMatrix();*/
 
-   		Ball balle = ballCreate(PointXY(0, 0), VectorXY(0, 0), 0, 10);
+   		Ball balle = newBall(newPoint(0, 0), newVector(0, 0), 0, 10);
 	    ballDrawing();
 
 
