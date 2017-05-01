@@ -19,10 +19,10 @@ typedef struct Ball{
 
 Ball newBall(Point center, Vector speed, float radius, Color color);
 
-void ballDrawing(Ball *ball);
+void ballDraw(Ball *ball);
 
 void ballRun(Ball *ball);
 
-void ballDisplay(Ball *ball);
+void ballRender(Ball *ball);
 
 #endif

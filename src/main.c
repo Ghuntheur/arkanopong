@@ -8,6 +8,7 @@
 #include <GL/glu.h>
 
 #include "ball.h"
+#include "bar.h"
 
 /**
  * VARIABLES GLOBALES A TOUS LES FICHIERS
@@ -21,14 +22,11 @@ int WINDOW_HEIGHT = 800;
 static const unsigned int BIT_PER_PIXEL = 32;
 static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
-static const float SCALE_X = 400.;
-static const float SCALE_Y = 400.;
-
 void reshape() {
   	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
   	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-  	gluOrtho2D(-SCALE_X, SCALE_X, -SCALE_Y, SCALE_Y);
+  	gluOrtho2D(-WINDOW_WIDTH/2, WINDOW_WIDTH/2, -WINDOW_HEIGHT/2, WINDOW_HEIGHT/2);
 }
 
 void setVideoMode() {
@@ -44,7 +42,7 @@ void setVideoMode() {
 int main(int argc, char** argv) {
   
   	if(SDL_Init(SDL_INIT_VIDEO) == -1){
-    	fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
+      fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
     	return EXIT_FAILURE;
   	}
    
@@ -52,15 +50,18 @@ int main(int argc, char** argv) {
 
   	SDL_WM_SetCaption("Arkanopong", NULL);
 
-  	Ball balle = newBall(newPoint(0, 0), newVector(0, 1), 30, newColor(255, 255, 255));
+  	Ball balle = newBall(newPoint(0, 0), newVector(1, 0), 30, newColor(255, 255, 255));
+    Bar barre  = newBar(newPoint(0, -360), 100, 20, newColor(50, 50, 50));
 
   	int loop = 1;
-  	while(loop) {
+  	while(loop){
     	Uint32 startTime = SDL_GetTicks();
 
     	glClear(GL_COLOR_BUFFER_BIT);
    		
-	    ballDisplay(&balle);
+	    ballRender(&balle);
+        barDraw(&barre);
+        
 
   		SDL_GL_SwapBuffers(); 	
 

@@ -13,7 +13,7 @@ Ball newBall(Point center, Vector speed, float radius, Color color){
 	return b;
 }
 
-void ballDrawing(Ball *ball){
+void ballDraw(Ball *ball){
 	int i;
 	int precision = 360;
 	
@@ -28,17 +28,18 @@ void ballDrawing(Ball *ball){
 }
 
 void ballRun(Ball *ball){
-	if(ball->center.x - ball->radius <= -WINDOW_WIDTH || ball->center.x + ball->radius > WINDOW_WIDTH){
+	if(ball->center.x - ball->radius <= -WINDOW_WIDTH/2 || ball->center.x + ball->radius > WINDOW_WIDTH/2){
 		ball->speed.x *= -1;
 	}
-	if(ball->center.y - ball->radius <= -WINDOW_HEIGHT || ball->center.y + ball->radius > WINDOW_HEIGHT){
+	if(ball->center.y - ball->radius <= -WINDOW_HEIGHT/2 || ball->center.y + ball->radius > WINDOW_HEIGHT/2){
 		ball->speed.y *= -1;
 	}
+
 	ball->center.x += ball->speed.x;
 	ball->center.y += ball->speed.y;
 }
 
-void ballDisplay(Ball *ball){
+void ballRender(Ball *ball){
 	ballRun(ball);
-	ballDrawing(ball);
+	ballDraw(ball);
 }
