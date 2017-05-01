@@ -5,15 +5,17 @@
 #include <GL/gl.h>
 
 #include "geometry.h"
+#include "color.h"
 
 typedef struct Ball{
 	Point center;
 	Vector speed;
 	float speedValue;
 	float radius;
+	Color color;
 }Ball;
 
-Ball ballCreate(Point center, Vector speed, float speedValue, float radius);
+Ball newBall(Point center, Vector speed, float speedValue, float radius, Color color);
 
 void ballDrawing();
 

@@ -52,15 +52,9 @@ int main(int argc, char** argv) {
 
     	glClear(GL_COLOR_BUFFER_BIT);
 
-	    glColor3ub(255, 0, 0);
 
-	    /*glPushMatrix();
-	    glScalef(0.3f, 0.3f, 0.3f);
-
-	    glPopMatrix();*/
-
-   		Ball balle = newBall(newPoint(0, 0), newVector(0, 0), 0, 10);
-	    ballDrawing();
+   		Ball balle = newBall(newPoint(0, 0), newVector(0, 0), 0, 10, newColor(255, 255, 255));
+	    ballDrawing(&balle);
 
 
   		SDL_GL_SwapBuffers();

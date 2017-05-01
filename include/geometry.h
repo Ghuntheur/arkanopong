@@ -12,7 +12,7 @@ typedef struct Point{
 }Point;
 
 
-Point PointXY(float x, float y);
+Point newPoint(float x, float y);
 
 /**
  * VECTEUR
@@ -23,6 +23,6 @@ typedef struct Vector{
 	float y;
 }Vector;
 
-Vector VectorXY(float x, float y);
+Vector newVector(float x, float y);
 
 #endif

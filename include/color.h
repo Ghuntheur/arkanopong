@@ -7,4 +7,6 @@ typedef struct Color{
 	float b;
 }Color;
 
-#endif;
+Color newColor(float r, float g, float b);
+
+#endif
