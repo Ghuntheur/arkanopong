@@ -10,6 +10,7 @@
 #include "ball.h"
 #include "bar.h"
 #include "player.h"
+#include "game.h"
 
 /**
  * VARIABLES GLOBALES A TOUS LES FICHIERS
@@ -50,6 +51,7 @@ int main(int argc, char** argv) {
   	setVideoMode();
 
   	SDL_WM_SetCaption("Arkanopong", NULL);
+
 
     Player p1 = newPlayer(
         newBall(newPoint(0, -300), newVector(2, 1), 30, newColor(255, 0, 0)),
