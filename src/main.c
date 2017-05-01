@@ -9,13 +9,20 @@
 
 #include "ball.h"
 
+/**
+ * VARIABLES GLOBALES A TOUS LES FICHIERS
+ */
 int WINDOW_WIDTH = 800;
 int WINDOW_HEIGHT = 800;
-const unsigned int BIT_PER_PIXEL = 32;
-const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
-const float SCALE_X = 400.;
-const float SCALE_Y = 400.;
+/**
+ * VARIABLES GLOABLES POUR MAIN
+ */
+static const unsigned int BIT_PER_PIXEL = 32;
+static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
+
+static const float SCALE_X = 400.;
+static const float SCALE_Y = 400.;
 
 void reshape() {
   	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
