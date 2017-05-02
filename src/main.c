@@ -11,6 +11,7 @@
 #include "bar.h"
 #include "player.h"
 #include "game.h"
+#include "collide.h"
 
 /**
  * VARIABLES GLOBALES A TOUS LES FICHIERS
@@ -66,6 +67,7 @@ int main(int argc, char** argv) {
          * Dessin à chaque frame
          */
         gameRender(&game);
+        collide(&game);
 
   		SDL_GL_SwapBuffers();
 
