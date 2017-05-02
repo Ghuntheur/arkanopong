@@ -51,6 +51,9 @@ int main(int argc, char** argv) {
   	setVideoMode();
 
   	SDL_WM_SetCaption("Arkanopong", NULL);
+
+    Game game;
+    if(newGame(&game, 2) == EXIT_FAILURE) return EXIT_FAILURE;
   	
   	int loop = 1;
   	while(loop){
@@ -60,17 +63,9 @@ int main(int argc, char** argv) {
     	glClear(GL_COLOR_BUFFER_BIT);
 
         /*
-         * Initialisation de la partie
-         */
-        Game *game;
-        int init = newGame(game, 2);
-        if(init == EXIT_FAILURE) return EXIT_FAILURE;
-
-
-        /*
          * Dessin à chaque frame
          */
-        gameRender(game);
+        gameRender(&game);
 
   		SDL_GL_SwapBuffers();
 
@@ -88,10 +83,10 @@ int main(int argc, char** argv) {
                  */
                 case SDL_KEYDOWN:
                     if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
-                        barMove(&game->players[0].bar, ev.key.keysym.sym);
+                        barMove(&game.players[0].bar, ev.key.keysym.sym);
                     }
                     if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
-                        barMove(&game->players[1].bar, ev.key.keysym.sym);
+                        barMove(&game.players[1].bar, ev.key.keysym.sym);
                     }
                     break;
 
