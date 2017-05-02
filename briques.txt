@@ -1,0 +1,11 @@
+0 => vide
+1 => brique basique (1 coup)
+2 => brique solide (3 coups)
+3 => brique incassable
+4 => brique bonus 1 : augmenter taille barre
+5 => brique bonus 2 : ralenti balle
+6 => brique bonus 3 : diminue barre adversaire
+7 => brique bonus 4 : rajoute vie
+8 => brique malus 1 : diminue taille barre
+9 => brique malus 2 : accelere balle
+10=> brique malus 3 : perd vie
