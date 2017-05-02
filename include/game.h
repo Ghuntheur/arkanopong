@@ -8,6 +8,8 @@ typedef struct Game{
 	Player *players;	
 }Game;
 
-Game newGame(int nbPlayers);
+int newGame(Game *game, int nbPlayers);
+
+void gameRender(Game *game);
 
 #endif
