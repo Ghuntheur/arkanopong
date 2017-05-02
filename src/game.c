@@ -1,18 +1,18 @@
 #include "game.h"
 
 int newGame(Game *game, int nbPlayers){
-	int i;
+
 
 	game->nbPlayers = nbPlayers;
 	game->players = (Player*) malloc(game->nbPlayers*sizeof(Player));
 	if(game->players == NULL) return EXIT_FAILURE;
 
-	game->players[i] = newPlayer(
+	game->players[0] = newPlayer(
 			newBall(newPoint(0, -300), newVector(2, 1), 30, newColor(255, 0, 0)),
 			newBar(newPoint(0, -360), 100, 20, newColor(255, 0, 0))
 		);
 
-	game->players[i] = newPlayer(
+	game->players[1] = newPlayer(
         	newBall(newPoint(0, 300), newVector(2, 1), 30, newColor(0, 255, 0)),
         	newBar(newPoint(0, 360), 100, 20, newColor(0, 255, 0))
         );

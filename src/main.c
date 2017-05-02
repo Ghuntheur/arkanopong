@@ -56,7 +56,6 @@ int main(int argc, char** argv) {
   	while(loop){
     	Uint32 startTime = SDL_GetTicks();
 
-        int i;
 
     	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -64,7 +63,8 @@ int main(int argc, char** argv) {
          * Initialisation de la partie
          */
         Game *game;
-        if(newGame(game, 2) == EXIT_FAILURE) return 0;
+        int init = newGame(game, 2);
+        if(init == EXIT_FAILURE) return EXIT_FAILURE;
 
 
         /*
@@ -88,10 +88,10 @@ int main(int argc, char** argv) {
                  */
                 case SDL_KEYDOWN:
                     if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
-                        barMove(&p1.bar, ev.key.keysym.sym);
+                        barMove(&game->players[0].bar, ev.key.keysym.sym);
                     }
                     if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
-                        barMove(&p2.bar, ev.key.keysym.sym);
+                        barMove(&game->players[1].bar, ev.key.keysym.sym);
                     }
                     break;
 
