@@ -10,6 +10,6 @@ typedef struct Player{
 	int life;
 }Player;
 
-Player newPlayer(Ball ball, Bar bar);
+Player newPlayer(Ball ball, Bar bar, int life);
 
 #endif
