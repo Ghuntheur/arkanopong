@@ -29,7 +29,7 @@ void barCollide(Player *p, int nbPlayers){
 
 		/* Pour toutes les barres */
 		for(j=start; j<nbPlayers; j+=2){
-			if(checkBarCollide(&p[i].ball, &p[j].bar)){
+			if(checkBarCollide(&p[i].ball, &p[j].bar) == EXIT_SUCCESS){
 				printf("ok\n");
 			}
 		}
@@ -49,6 +49,16 @@ void barCollide(Player *p, int nbPlayers){
 }
 
 int checkBarCollide(Ball *ball, Bar *bar){
+	/* barres du bas */
+	float w = bar->width/2;
+	float h = bar->height/2;
+	float r = ball->radius;
+	if(ball->center.x >= bar->center.x - w && ball->center.x <= bar->center.x + w){
+		if(ball->center.y - r <= bar->center.y + h && ball->center.y + r >= bar->center.y - h){
+			return EXIT_SUCCESS;
+		}
+		return EXIT_FAILURE;
+	}
 	return EXIT_FAILURE;
 }
 

@@ -105,5 +105,7 @@ int main(int argc, char** argv) {
   
   	SDL_Quit();
   
+    printf(" succ %d\n", EXIT_SUCCESS);
+
   	return EXIT_SUCCESS;
 }
