@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
   	SDL_WM_SetCaption("Arkanopong", NULL);
 
     Game game;
-    if(newGame(&game, 1) == EXIT_FAILURE) return EXIT_FAILURE;
+    if(newGame(&game, 4) == EXIT_FAILURE) return EXIT_FAILURE;
   	
   	int loop = 1;
   	while(loop){
