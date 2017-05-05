@@ -24,7 +24,6 @@ void barCollide(Game *g){
 	for(i=0; i<g->nbPlayers; i++){
 		/* Si balle dans moitié haute ou basse */
 		start = (g->players[i].ball.center.y > 0) ? 1 : 0;
-		printf("j = %d\n", start);
 
 		/* Pour toutes les barres */
 		for(j=start; j<g->nbPlayers; j+=2){

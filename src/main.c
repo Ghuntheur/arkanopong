@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
   	SDL_WM_SetCaption("Arkanopong", NULL);
 
     Game game;
-    if(newGame(&game, 4) == EXIT_FAILURE) return EXIT_FAILURE;
+    if(newGame(&game, 2) == EXIT_FAILURE) return EXIT_FAILURE;
   	
   	int loop = 1;
   	while(loop){
@@ -80,11 +80,37 @@ int main(int argc, char** argv) {
                  * TODO: LAISSER TOUCHE ENFONCEE
                  */
                 case SDL_KEYDOWN:
-                    if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
-                        barMove(&game.players[0].bar, ev.key.keysym.sym);
+                    switch(ev.key.keysym.sym){
+                        case SDLK_LEFT:
+                        case SDLK_RIGHT:
+                            barMove(&game.players[0].bar, ev.key.keysym.sym);       
+                            printf("appuyé\n");
+                            break;
+
+                        case SDLK_a:
+                        case SDLK_z:
+                            barMove(&game.players[1].bar, ev.key.keysym.sym);
+                            break;
+
+                        default:
+                            break;
                     }
-                    if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
-                        barMove(&game.players[1].bar, ev.key.keysym.sym);
+                    break;
+
+                case SDL_KEYUP:
+                    switch(ev.key.keysym.sym){
+                        case SDLK_LEFT:
+                        case SDLK_RIGHT:
+                            printf("laché\n");
+                            break;
+
+                        case SDLK_a:
+                        case SDLK_z:
+
+                            break;
+
+                        default:
+                            break;
                     }
                     break;
 
