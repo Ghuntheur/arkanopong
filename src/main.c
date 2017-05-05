@@ -73,10 +73,6 @@ int main(int argc, char** argv) {
 
 	    SDL_Event ev;
 	    while(SDL_PollEvent(&ev)){
-	    	if(ev.type == SDL_QUIT){
-	    	    loop = 0;
-	        	break;
-	      	}
 
 	      	switch(ev.type){          
 	        	

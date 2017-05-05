@@ -5,7 +5,7 @@
 
 void collide(Game *game);
 
-void barCollide(Player *p, int nbPlayers);
+void barCollide(Game *g);
 
 int checkBarCollide(Ball *ball, Bar *bar, float *ratio);
 

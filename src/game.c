@@ -14,7 +14,7 @@ int newGame(Game *game, int nbPlayers){
 		);
 
 	game->players[1] = newPlayer(
-        	newBall(newPoint(0, 0), newVector(2, 1), 30, newColor(0, 255, 0)),
+        	newBall(newPoint(0, 0), newVector(2, 3), 30, newColor(0, 255, 0)),
         	newBar(newPoint(-200, 360), 100, 20, newColor(0, 255, 0)),
         	1
         );
