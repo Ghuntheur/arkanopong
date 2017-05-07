@@ -7,65 +7,29 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include "init.h"
 #include "ball.h"
 #include "bar.h"
 #include "player.h"
 #include "game.h"
 #include "collide.h"
 
-/**
- * VARIABLES GLOBALES A TOUS LES FICHIERS
- */
 int WINDOW_WIDTH = 800;
 int WINDOW_HEIGHT = 800;
 
-/**
- * VARIABLES GLOABLES POUR MAIN
- */
-static const unsigned int BIT_PER_PIXEL = 32;
-static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
-
-void reshape() {
-  	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-  	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-  	gluOrtho2D(-WINDOW_WIDTH/2, WINDOW_WIDTH/2, -WINDOW_HEIGHT/2, WINDOW_HEIGHT/2);
-}
-
-void setVideoMode() {
-	if(NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL)) {
-    	fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
-    	exit(EXIT_FAILURE);
-  	}
-  
-  	reshape();
-}
-
-
 int main(int argc, char** argv) {
   
-  	if(SDL_Init(SDL_INIT_VIDEO) == -1){
-        fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
-    	return EXIT_FAILURE;
-  	}
-    
-  	setVideoMode();
-
-  	SDL_WM_SetCaption("Arkanopong", NULL);
+  	if(initSDL() == EXIT_FAILURE) return EXIT_FAILURE;     	
 
     Game game;
-    if(newGame(&game, 4) == EXIT_FAILURE) return EXIT_FAILURE;
+    if(newGame(&game, 2) == EXIT_FAILURE) return EXIT_FAILURE;
   	
   	int loop = 1;
   	while(loop){
     	Uint32 startTime = SDL_GetTicks();
 
-
     	glClear(GL_COLOR_BUFFER_BIT);
 
-        /*
-         * Dessin à chaque frame
-         */
         gameRender(&game);
         collide(&game);
 

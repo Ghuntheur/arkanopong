@@ -19,7 +19,7 @@ int newGame(Game *game, int nbPlayers){
         	1
         );
 
-	game->players[2] = newPlayer(
+	/*game->players[2] = newPlayer(
         	newBall(newPoint(0, 0), newVector(-1, 1), 30, newColor(0, 255, 255)),
         	newBar(newPoint(200, -360), 100, 20, newColor(0, 255, 255)),
         	2
@@ -29,7 +29,7 @@ int newGame(Game *game, int nbPlayers){
         	newBall(newPoint(0, 0), newVector(2, -1), 30, newColor(255, 255, 0)),
         	newBar(newPoint(200, 360), 100, 20, newColor(255, 255, 0)),
         	3
-        );
+        );*/
 
 	return EXIT_SUCCESS;
 }
