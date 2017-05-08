@@ -7,8 +7,7 @@
 #include "geometry.h"
 #include "color.h"
 
-extern int WINDOW_WIDTH;
-extern int WINDOW_HEIGHT;
+#include "variables.h"
 
 typedef struct Ball{
 	Point center;

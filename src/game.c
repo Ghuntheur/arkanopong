@@ -2,6 +2,7 @@
 
 int newGame(Game *game, int nbPlayers){
 
+	game->gameState = LOADING;
 
 	game->nbPlayers = nbPlayers;
 	game->players = (Player*) malloc(game->nbPlayers*sizeof(Player));

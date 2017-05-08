@@ -7,6 +7,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include "variables.h"
 #include "init.h"
 #include "ball.h"
 #include "bar.h"
@@ -14,15 +15,13 @@
 #include "game.h"
 #include "collide.h"
 
-int WINDOW_WIDTH = 800;
-int WINDOW_HEIGHT = 800;
-
-int main(int argc, char** argv) {
+int main(int argc, char** argv){
   
   	if(initSDL() == EXIT_FAILURE) return EXIT_FAILURE;     	
 
     Game game;
     if(newGame(&game, 2) == EXIT_FAILURE) return EXIT_FAILURE;
+
   	
   	int loop = 1;
   	while(loop){
