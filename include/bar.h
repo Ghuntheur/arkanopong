@@ -13,10 +13,11 @@ typedef struct Bar{
 	Point center;
 	float width;
 	float height;
+	float speed;
 	Color color;
 }Bar;
 
-Bar newBar(Point center, float width, float height, Color color);
+Bar newBar(Point center, Color color);
 
 void barDraw(Bar *bar);
 

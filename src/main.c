@@ -9,28 +9,24 @@
 
 #include "variables.h"
 #include "init.h"
+#include "game.h"
+#include "player.h"
 #include "ball.h"
 #include "bar.h"
-#include "player.h"
-#include "game.h"
 #include "collide.h"
 
 int main(int argc, char** argv){
-  
-  	if(initSDL() == EXIT_FAILURE) return EXIT_FAILURE;     	
 
-    Game game;
-    if(newGame(&game, 2) == EXIT_FAILURE) return EXIT_FAILURE;
+    Game game = newGame();	 	
 
+    update(&game);
   	
+    gameRender(&game);
+
   	int loop = 1;
   	while(loop){
     	Uint32 startTime = SDL_GetTicks();
-
-    	glClear(GL_COLOR_BUFFER_BIT);
-
-        gameRender(&game);
-        collide(&game);
+        /*collide(&game);*/
 
   		SDL_GL_SwapBuffers();
 
@@ -67,8 +63,6 @@ int main(int argc, char** argv){
   	}
   
   	SDL_Quit();
-  
-    printf(" succ %d\n", EXIT_SUCCESS);
 
   	return EXIT_SUCCESS;
 }

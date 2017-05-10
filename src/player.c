@@ -9,3 +9,4 @@ Player newPlayer(Ball ball, Bar bar, int life){
 
 	return p;
 }
+

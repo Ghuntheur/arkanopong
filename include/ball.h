@@ -16,7 +16,7 @@ typedef struct Ball{
 	Color color;
 }Ball;
 
-Ball newBall(Point center, Vector speed, float radius, Color color);
+Ball newBall(Point center, Vector speed, Color color);
 
 void ballDraw(Ball *ball);
 

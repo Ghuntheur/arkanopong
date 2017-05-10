@@ -1,43 +1,73 @@
 #include "game.h"
 
-int newGame(Game *game, int nbPlayers){
-
-	game->gameState = LOADING;
-
-	game->nbPlayers = nbPlayers;
-	game->players = (Player*) malloc(game->nbPlayers*sizeof(Player));
-	if(game->players == NULL) return EXIT_FAILURE;
-
-	game->players[0] = newPlayer(
-			newBall(newPoint(0, 0), newVector(0, -3), 30, newColor(255, 0, 0)),
-			newBar(newPoint(-200, -360), 100, 20, newColor(255, 0, 0)),
-			0
-		);
-
-	game->players[1] = newPlayer(
-        	newBall(newPoint(0, 0), newVector(2, 1), 30, newColor(0, 255, 0)),
-        	newBar(newPoint(-200, 360), 100, 20, newColor(0, 255, 0)),
-        	1
-        );
-
-	/*game->players[2] = newPlayer(
-        	newBall(newPoint(0, 0), newVector(-1, 1), 30, newColor(0, 255, 255)),
-        	newBar(newPoint(200, -360), 100, 20, newColor(0, 255, 255)),
-        	2
-        );
-
-	game->players[3] = newPlayer(
-        	newBall(newPoint(0, 0), newVector(2, -1), 30, newColor(255, 255, 0)),
-        	newBar(newPoint(200, 360), 100, 20, newColor(255, 255, 0)),
-        	3
-        );*/
-
-	return EXIT_SUCCESS;
+Game newGame(){
+	Game g;
+	g.gameState = LOADING;
+	return g;
 }
 
+void update(Game *game){
+
+	switch(game->gameState){
+		case LOADING:
+			if(initSDL() == EXIT_FAILURE) return;
+			game->gameState = SELECTING;
+			update(game);
+			break;
+
+		case SELECTING:
+			/**
+			 * Menu : 
+			 * nb joueurs
+			 * niveau
+			 * textures
+			 * IA 
+			 */
+			game->gameState = BUILDING;
+			update(game);
+			break;
+
+		case BUILDING:
+			createPlayers(game);
+			game->gameState = PLAYING;
+			update(game);
+			break;
+
+		/*case PLAYING:
+			play(game);
+			break;
+
+		default:
+			break;
+	*/}
+}
+
+void createPlayers(Game *game){
+	int i, pos;
+
+	/*Allocation mémoires*/
+	game->nbPlayers = 2;
+	game->players = (Player*) malloc(game->nbPlayers*sizeof(Player));
+	if(game->players == NULL) return;
+
+	for(i=0; i<game->nbPlayers; i++){
+		pos = (i%2 == 0) ? -1 : 1;
+		game->players[i] = newPlayer(
+			newBall(newPoint(0, 360*pos - 20*pos), newVector(1, 2*i+1), newColor(255, 100*i, 50*i)),
+			newBar(newPoint(0, 360*pos), newColor(25, 100*i, 50*i)),
+			i
+		);
+	}
+}
+
+void play(Game *game){
+	printf("ok\n");
+}
 
 void gameRender(Game *game){
 	int i;
+
+	glClear(GL_COLOR_BUFFER_BIT);
 
 	for(i=0; i<game->nbPlayers; i++){
         ballRender(&game->players[i].ball);

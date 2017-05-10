@@ -1,11 +1,12 @@
 #include "bar.h"
 
-Bar newBar(Point center, float width, float height, Color color){
+Bar newBar(Point center, Color color){
 	Bar b;
 
 	b.center = center;
-	b.width  = width;
-	b.height = height;
+	b.width  = WINDOW_WIDTH/10;
+	b.height = 12;
+	b.speed  = 0;
 	b.color  = color;
 
 	return b;

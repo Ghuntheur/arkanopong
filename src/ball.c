@@ -2,12 +2,12 @@
 
 #include "ball.h"
 
-Ball newBall(Point center, Vector speed, float radius, Color color){
+Ball newBall(Point center, Vector speed, Color color){
 	Ball b;
 
 	b.center     = center;
 	b.speed      = speed;
-	b.radius     = radius;
+	b.radius     = 10;
 	b.color      = color;
 
 	return b;
