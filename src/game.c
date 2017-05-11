@@ -33,13 +33,13 @@ void update(Game *game){
 			update(game);
 			break;
 
-		/*case PLAYING:
+		case PLAYING:
 			play(game);
 			break;
 
 		default:
 			break;
-	*/}
+	}
 }
 
 void createPlayers(Game *game){
@@ -54,14 +54,53 @@ void createPlayers(Game *game){
 		pos = (i%2 == 0) ? -1 : 1;
 		game->players[i] = newPlayer(
 			newBall(newPoint(0, 360*pos - 20*pos), newVector(1, 2*i+1), newColor(255, 100*i, 50*i)),
-			newBar(newPoint(0, 360*pos), newColor(25, 100*i, 50*i)),
+			newBar(newPoint(0, 360*pos), newColor(255, 100*i, 50*i)),
 			i
 		);
 	}
 }
 
 void play(Game *game){
-	printf("ok\n");
+	int loop = 1;
+  	while(loop){
+    	Uint32 startTime = SDL_GetTicks();
+
+    	gameRender(game);
+        /*collide(&game);*/
+
+  		SDL_GL_SwapBuffers();
+
+	    SDL_Event ev;
+	    while(SDL_PollEvent(&ev)){
+	    	if(ev.type == SDL_QUIT){
+	    	    loop = 0;
+	        	break;
+	      	}
+
+	      	switch(ev.type){          
+	        	
+                /**
+                 * TODO: LAISSER TOUCHE ENFONCEE
+                 */
+                case SDL_KEYDOWN:
+                    if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
+                        barMove(&game->players[0].bar, ev.key.keysym.sym);
+                    }
+                    if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
+                        barMove(&game->players[1].bar, ev.key.keysym.sym);
+                    }
+                    break;
+
+		        default:
+		        	break;
+	      	}
+	    }
+    
+    	Uint32 elapsedTime = SDL_GetTicks() - startTime;
+    	if(elapsedTime < FRAMERATE_MILLISECONDS){
+      		SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
+    	}
+    }
 }
 
 void gameRender(Game *game){
