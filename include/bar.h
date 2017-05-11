@@ -21,6 +21,10 @@ Bar newBar(Point center, Color color);
 
 void barDraw(Bar *bar);
 
-void barMove(Bar *bar, int key);
+void barRun(Bar *bar);
+
+void changeBarSpeed(Bar *bar, int key, int type);
+
+void barRender(Bar *bar);
 
 #endif

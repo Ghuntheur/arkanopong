@@ -28,14 +28,33 @@ void barDraw(Bar *bar){
 	glEnd();
 }
 
-void barMove(Bar *bar, int key){
-	bar->center.x += (key == SDLK_RIGHT || key == SDLK_z) ? 60 : -60;
-
+void barRun(Bar *bar){
 	if(bar->center.x - bar->width/2 < -WINDOW_WIDTH/2){
 		bar->center.x = -WINDOW_WIDTH/2 + bar->width/2;
 	}
 	if(bar->center.x + bar->width/2 > WINDOW_WIDTH/2){
 		bar->center.x = WINDOW_WIDTH/2 - bar->width/2;
+	}
+
+	bar->center.x += bar->speed;
+}
+
+void changeBarSpeed(Bar *bar, int key, int type){
+	switch(type){
+		case SPEED_UP: 
+			bar->speed = (key == SDLK_RIGHT || key == SDLK_z) ? 10 : -10;
+			break;
+
+		case SPEED_STOP:
+			bar->speed = 0;
+			break;
+
+		default:
+			break;
 	}	
-	
+}
+
+void barRender(Bar *bar){
+	barRun(bar);
+	barDraw(bar);
 }

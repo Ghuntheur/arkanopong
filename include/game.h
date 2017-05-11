@@ -1,7 +1,6 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-
 #include "init.h"
 #include "player.h"
 #include "variables.h"

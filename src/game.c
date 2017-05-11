@@ -84,10 +84,19 @@ void play(Game *game){
                  */
                 case SDL_KEYDOWN:
                     if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
-                        barMove(&game->players[0].bar, ev.key.keysym.sym);
+                        changeBarSpeed(&game->players[0].bar, ev.key.keysym.sym, SPEED_UP);
                     }
                     if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
-                        barMove(&game->players[1].bar, ev.key.keysym.sym);
+                        changeBarSpeed(&game->players[1].bar, ev.key.keysym.sym, SPEED_UP);
+                    }
+                    break;
+
+                case SDL_KEYUP:
+                	if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
+                        changeBarSpeed(&game->players[0].bar, ev.key.keysym.sym, SPEED_STOP);
+                    }
+                    if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
+                        changeBarSpeed(&game->players[1].bar, ev.key.keysym.sym, SPEED_STOP);
                     }
                     break;
 
@@ -110,6 +119,6 @@ void gameRender(Game *game){
 
 	for(i=0; i<game->nbPlayers; i++){
         ballRender(&game->players[i].ball);
-        barDraw(&game->players[i].bar);
+        barRender(&game->players[i].bar);
     }
 }

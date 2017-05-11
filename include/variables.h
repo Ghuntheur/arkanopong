@@ -15,4 +15,10 @@ typedef enum gameState{
 	OVER
 }gameState;
 
+typedef enum speed{
+	SPEED_UP,
+	SPEED_DOWN,
+	SPEED_STOP
+}speed;
+
 #endif
