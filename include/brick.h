@@ -19,8 +19,10 @@ typedef struct Brick{
 	Color color;
 }Brick;
 
-Brick newBrick(int value, int width, int i, int j);
+Brick newBrick(int value, int width, int height, int i, int j);
 
 void drawBrick(Brick *brick);
+
+Color colorizeBrick(int type);
 
 #endif

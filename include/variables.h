@@ -21,4 +21,11 @@ typedef enum speed{
 	SPEED_STOP
 }speed;
 
+typedef enum brickType{
+	FIRST,
+	SECOND, 
+	THIRD,
+	FOURTH
+}brickType;
+
 #endif

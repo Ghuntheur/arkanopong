@@ -36,7 +36,7 @@ int createBricks(Level *level, FILE *file){
 	for(j=0; j<level->height; j++){
 		for(i=0; i<level->width; i++){
 			fscanf(file, "%d ", &num);
-			printf("%d ", num);
+			level->bricks[count] = newBrick(num, level->width, level->height, i, j);
 			count++;
 		}
 	}
@@ -48,6 +48,8 @@ int createBricks(Level *level, FILE *file){
 void levelRender(Level *level){
 	int i;
 	for(i=0; i<level->width*level->height; i++){
-		drawBrick(&level->bricks[i]);
+		if(level->bricks[i].broken == 0){
+			drawBrick(&level->bricks[i]);
+		}		
 	}
 }
