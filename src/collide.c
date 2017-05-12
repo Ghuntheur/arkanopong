@@ -13,9 +13,29 @@ void collide(Game *game){
 	 *                                                   balles et les briques  
 	 */
 	for(i=0; i<game->nbPlayers; i++){
-		barCollide(&game->players[i], game->nbPlayers);
-		brickCollide();
+		/*barCollide(&game->players[i], game->nbPlayers);*/
+		brickCollide(&game->players[i].ball, &game->level);
 	}
+}
+
+Box newBoxFromBall(Ball *ball){
+	Box b;
+
+	b.center = ball->center;
+	b.width  = ball->radius;
+	b.height = ball->radius;
+
+	return b;
+}
+
+Box newBoxFromBrick(Brick *brick){
+	Box b;
+
+	b.center = brick->center;
+	b.width  = brick->width;
+	b.height = brick->height;
+
+	return b;
 }
 
 void barCollide(Player *p, int nbPlayers){
@@ -37,20 +57,18 @@ void barCollide(Player *p, int nbPlayers){
 }
 
 int checkBarCollide(Ball *ball, Bar *bar, float *ratio){
-	/* barress du bas */
-	float w = bar->width/2;
-	float h = bar->height/2;
-	float r = ball->radius;
-	if(ball->center.x >= bar->center.x - w && ball->center.x <= bar->center.x + w){
-		if(ball->center.y - r <= bar->center.y + h && ball->center.y + r >= bar->center.y - h){
-			/* calcul du ratio */
-			return EXIT_SUCCESS;
-		}
-		return EXIT_FAILURE;
-	}
-	return EXIT_FAILURE;
+	return EXIT_SUCCESS;	
 }
 
-void brickCollide(){
+int checkBoxBoxCollide(Box *ball, Box *box){
+	return EXIT_SUCCESS;
+}
 
+void brickCollide(Ball *ball, Level *level){
+	int i;
+	for(i=0; i<level->width*level->height; i++){
+		Box boxBall = newBoxFromBall(ball);
+		Box box     = newBoxFromBrick(&level->bricks[i]);
+		if(checkBoxBoxCollide(&boxBall, &box) == EXIT_FAILURE) return;
+	}
 }
