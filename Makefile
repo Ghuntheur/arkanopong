@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -ansi
-LDFLAGS = -lSDL -lm
+CFLAGS = -Wall -g -ansi -fno-omit-frame-pointer -ggdb
+LDFLAGS = -lSDL -lGLU -lGL -lm -fsanitize=address
 
 APP_BIN = arkanopong
 
