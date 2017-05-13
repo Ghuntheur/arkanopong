@@ -39,10 +39,24 @@ void barRun(Bar *bar){
 	}	
 }
 
-void changeBarSpeed(Bar *bar, int key, int type){
+void changeBarSpeed(Bar *bar, int control, int type){
 	switch(type){
-		case SPEED_UP: 
-			bar->speed = (key == SDLK_RIGHT || key == SDLK_z) ? 10 : -10;
+		case SPEED_UP:
+			switch(control){
+				case CONTROL_LEFT:
+					bar->speed -= 10;
+					break;
+
+				case CONTROL_RIGHT:
+					bar->speed += 10;
+					break;
+
+				case CONTROL_START:
+					break;
+
+				default:
+					break;
+			}
 			break;
 
 		case SPEED_STOP:

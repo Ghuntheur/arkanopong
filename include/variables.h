@@ -29,4 +29,10 @@ typedef enum brickType{
 	FOURTH
 }brickType;
 
+typedef enum controlType{
+	CONTROL_LEFT,
+	CONTROL_RIGHT,
+	CONTROL_START
+}controlType;
+
 #endif

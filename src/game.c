@@ -63,6 +63,7 @@ void createPlayers(Game *game){
 		game->players[i] = newPlayer(
 			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newColor(255, 100*i, 50*i)),
 			newBar(newPoint(0, 360*pos), newColor(255, 100*i, 50*i)),
+			createControl(i),
 			i
 		);
 	}
@@ -70,6 +71,7 @@ void createPlayers(Game *game){
 
 void play(Game *game){
 	int loop = 1;
+	int i;
   	while(loop){
     	unsigned int startTime = SDL_GetTicks();
 
@@ -91,12 +93,14 @@ void play(Game *game){
                  * TODO: LAISSER TOUCHE ENFONCEE
                  */
                 case SDL_KEYDOWN:
-                    if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
-                        changeBarSpeed(&game->players[0].bar, ev.key.keysym.sym, SPEED_UP);
-                    }
-                    if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
-                        changeBarSpeed(&game->players[1].bar, ev.key.keysym.sym, SPEED_UP);
-                    }
+                	for(i=0; i<game->nbPlayers; i++){
+                		if(ev.key.keysym.sym == game->players[i].control.left){
+                			changeBarSpeed(&game->players[i].bar, CONTROL_LEFT, SPEED_UP);
+                		}
+                		if(ev.key.keysym.sym == game->players[i].control.right){
+                			changeBarSpeed(&game->players[i].bar, CONTROL_RIGHT, SPEED_UP);
+                		}
+                	}
 
                     if(ev.key.keysym.sym == SDLK_SPACE){
                     	changeBallSpeed(&game->players[0].ball, 0, SPEED_START);
@@ -107,12 +111,14 @@ void play(Game *game){
                     break;
  
                 case SDL_KEYUP:
-                	if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
-                        changeBarSpeed(&game->players[0].bar, ev.key.keysym.sym, SPEED_STOP);
-                    }
-                    if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
-                        changeBarSpeed(&game->players[1].bar, ev.key.keysym.sym, SPEED_STOP);
-                    }
+                	for(i=0; i<game->nbPlayers; i++){
+                		if(ev.key.keysym.sym == game->players[i].control.left){
+                			changeBarSpeed(&game->players[i].bar, CONTROL_LEFT, SPEED_STOP);
+                		}
+                		if(ev.key.keysym.sym == game->players[i].control.right){
+                			changeBarSpeed(&game->players[i].bar, CONTROL_RIGHT, SPEED_STOP);
+                		}
+                	}
                     break;
 
 		        default:

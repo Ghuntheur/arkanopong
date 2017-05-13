@@ -3,14 +3,17 @@
 
 #include "ball.h"
 #include "bar.h"
+#include "control.h"
 
 typedef struct Player{
 	Ball ball;
 	Bar bar;
+	Control control;
+	
 	int id;
 	int life;
 }Player;
 
-Player newPlayer(Ball ball, Bar bar, int id);
+Player newPlayer(Ball ball, Bar bar, Control control, int id);
 
 #endif
