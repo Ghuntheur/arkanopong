@@ -6,6 +6,7 @@
 #include "init.h"
 #include "player.h"
 #include "level.h"
+#include "collide.h"
 #include "variables.h"
 
 typedef struct Game{
@@ -22,6 +23,8 @@ void update(Game *game);
 void play(Game *game);
 
 void createPlayers(Game *game);
+
+void collide(Game *game);
 
 void gameRender(Game *game);
 

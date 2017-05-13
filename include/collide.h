@@ -9,8 +9,6 @@ typedef struct Box{
 	float height;
 }Box;
 
-void collide(Game *game);
-
 Box newBoxFromBall(Ball *ball);
 
 Box newBoxFromBrick(Brick *brick);
@@ -20,6 +18,14 @@ void barCollide(Player *p, int nbPlayers);
 int checkBarCollide(Ball *ball, Bar *bar, float *ratio);
 
 int checkBoxBoxCollide(Box *ball, Box *box);
+
+int checkCornersInCircle(Ball *ball, Box *box);
+
+int checkPointInCircle(int x, int y, Ball *ball);
+
+int checkPointInBox(Point *center, Box *box);
+
+int checkThrown(Vector *AC, Vector *AB, Vector *BC);
 
 void brickCollide(Ball *ball, Level *level);
 

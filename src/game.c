@@ -61,7 +61,7 @@ void createPlayers(Game *game){
 	for(i=0; i<game->nbPlayers; i++){
 		pos = (i%2 == 0) ? -1 : 1;
 		game->players[i] = newPlayer(
-			newBall(newPoint(0, 360*pos - 20*pos), newVector(1, 2*i+1), newColor(255, 100*i, 50*i)),
+			newBall(newPoint(50, 360*pos - 20*pos), newVector(i+1, 2*i+1), newColor(255, 100*i, 50*i)),
 			newBar(newPoint(0, 360*pos), newColor(255, 100*i, 50*i)),
 			i
 		);
@@ -74,7 +74,7 @@ void play(Game *game){
     	unsigned int startTime = SDL_GetTicks();
 
     	gameRender(game);
-        /*collide(&game);*/
+        collide(game);
 
   		SDL_GL_SwapBuffers();
 
@@ -120,6 +120,17 @@ void play(Game *game){
     }
 }
 
+void collide(Game *game){
+	int i;
+	/**
+	 * Pour chaque joeur, on teste la collison entre les balles et les barres
+	 *                                                   balles et les briques  
+	 */
+	for(i=0; i<game->nbPlayers; i++){
+		/*barCollide(&game->players[i], game->nbPlayers);*/
+		brickCollide(&game->players[i].ball, &game->level);
+	}
+}
 
 void gameRender(Game *game){
 	int i;

@@ -5,7 +5,7 @@ Brick newBrick(int value, int width, int height, int i, int j){
 
 	b.type    = value/10;
 	b.bonus   = value%10;
-	b.broken  = (i==j) ? 1 : 0;
+	b.broken  = 0;
 	
 	b.width  = WINDOW_WIDTH/width;
 	b.height = 50;

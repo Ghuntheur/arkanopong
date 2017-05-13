@@ -25,4 +25,8 @@ typedef struct Vector{
 
 Vector newVector(float x, float y);
 
+Vector newVectorFromPoint(Point *A, Point *B);
+
+float dotProduct(Vector *A, Vector *B);
+
 #endif

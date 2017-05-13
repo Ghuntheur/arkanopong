@@ -1,23 +1,5 @@
 #include "collide.h"
 
-/**
- * Fonction englobante pour la collision balles - barres
- *                                       balles - briques
- * @param game [description]
- */
-void collide(Game *game){
-	int i;
-
-	/**
-	 * Pour chaque joeur, on teste la collison entre les balles et les barres
-	 *                                                   balles et les briques  
-	 */
-	for(i=0; i<game->nbPlayers; i++){
-		/*barCollide(&game->players[i], game->nbPlayers);*/
-		brickCollide(&game->players[i].ball, &game->level);
-	}
-}
-
 Box newBoxFromBall(Ball *ball){
 	Box b;
 
@@ -61,7 +43,50 @@ int checkBarCollide(Ball *ball, Bar *bar, float *ratio){
 }
 
 int checkBoxBoxCollide(Box *ball, Box *box){
-	return EXIT_SUCCESS;
+	if(ball->center.x + ball->width >= box->center.x - box->width &&
+	   ball->center.x - ball->width <= box->center.x + box->width &&
+	   ball->center.y + ball->height >= box->center.y - box->height &&
+	   ball->center.y - ball->height <= box->center.y + box->height){
+		return EXIT_SUCCESS;
+	}
+	return EXIT_FAILURE;
+}
+
+int checkCornersInCircle(Ball *ball, Box *box){
+	int x = box->center.x;
+	int y = box->center.y;
+	int w = box->width / 2;
+	int h = box->height / 2;
+
+	if(checkPointInCircle(x-w, y+h, ball) == EXIT_SUCCESS ||
+	   checkPointInCircle(x+w, y+h, ball) == EXIT_SUCCESS ||
+	   checkPointInCircle(x+w, y-h, ball) == EXIT_SUCCESS ||
+	   checkPointInCircle(x-w, y-h, ball) == EXIT_SUCCESS){
+		return EXIT_SUCCESS;
+	}
+	return EXIT_FAILURE;
+}
+
+int checkPointInCircle(int x, int y, Ball *ball){
+	int dist = (x-ball->center.x)*(x-ball->center.x) + (y-ball->center.y)*(y-ball->center.y);
+	return (dist > ball->radius*ball->radius) ? EXIT_FAILURE : EXIT_SUCCESS;
+}
+
+int checkPointInBox(Point *center, Box *box){
+	if(center->x >= box->center.x - box->width &&
+	   center->x <= box->center.x + box->width &&
+	   center->y >= box->center.y - box->height &&
+	   center->y <= box->center.y + box->height){
+		return EXIT_SUCCESS;
+	}
+	return EXIT_FAILURE;
+}
+
+int checkThrown(Vector *AC, Vector *AB, Vector *BC){
+	int s1 = dotProduct(AC, AB);
+	int s2 = dotProduct(BC, AB);
+
+	return (s1*s2 > 0) ? EXIT_FAILURE : EXIT_SUCCESS; 
 }
 
 void brickCollide(Ball *ball, Level *level){
@@ -69,6 +94,47 @@ void brickCollide(Ball *ball, Level *level){
 	for(i=0; i<level->width*level->height; i++){
 		Box boxBall = newBoxFromBall(ball);
 		Box box     = newBoxFromBrick(&level->bricks[i]);
-		if(checkBoxBoxCollide(&boxBall, &box) == EXIT_FAILURE) return;
+		/**
+		 * Test de collision entre les boites engendrées par la balle et la brique
+		 */
+		if(checkBoxBoxCollide(&boxBall, &box) == EXIT_FAILURE) continue;
+
+		/**
+		 * Test de collision entre un sommet de la brique et la balle
+		 */
+		if(checkCornersInCircle(ball, &box) == EXIT_SUCCESS){
+			if(level->bricks[i].broken != 1)
+				printf("brick %d is broken with test 1\n", i);
+			level->bricks[i].broken = 1;
+		}
+
+		/**
+		 * Si balle est dans le cercle
+		 */
+		if(checkPointInBox(&ball->center, &box) == EXIT_SUCCESS){
+			if(level->bricks[i].broken != 1)
+				printf("brick %d is broken with test 2\n", i);
+			level->bricks[i].broken = 1;
+		}
+
+		/**
+		 *  Projeté du centre de la balle sur les segments de la briques
+		 */
+		Point A = newPoint(box.center.x-box.width/2, box.center.y+box.height/2);
+		Point B = newPoint(box.center.x+box.width/2, box.center.y+box.height/2);
+		Point C = box.center;
+		Point D = newPoint(box.center.x-box.width/2, box.center.y-box.height/2);
+
+		Vector AC = newVectorFromPoint(&A, &C);
+		Vector AB = newVectorFromPoint(&A, &B);
+		Vector BC = newVectorFromPoint(&B, &C);
+		Vector DC = newVectorFromPoint(&D, &C);
+		Vector AD = newVectorFromPoint(&A, &D);
+
+		if(checkThrown(&AC, &AB, &BC) == EXIT_SUCCESS || checkThrown(&AC, &AD, &DC) == EXIT_SUCCESS){
+			if(level->bricks[i].broken != 1)
+				printf("brick %d is broken with test 3\n", i);
+			level->bricks[i].broken = 1;
+		}
 	}
 }
