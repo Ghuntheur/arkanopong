@@ -1,6 +1,6 @@
 #include "brick.h"
 
-Brick newBrick(int value, int width, int height, int i, int j){
+Brick newBrick(int value, float width, float height, int i, int j){
 	Brick b;
 
 	b.type    = value/10;
@@ -8,7 +8,7 @@ Brick newBrick(int value, int width, int height, int i, int j){
 	b.broken  = 0;
 	
 	b.width  = WINDOW_WIDTH/width;
-	b.height = 50;
+	b.height = 20;
 
 	b.center = newPoint(
 		-WINDOW_WIDTH/2 + b.width*(i+0.5),

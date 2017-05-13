@@ -13,9 +13,13 @@ Box newBoxFromBall(Ball *ball);
 
 Box newBoxFromBrick(Brick *brick);
 
-void barCollide(Player *p, int nbPlayers);
+Box newBoxFromBar(Bar *bar);
+
+void barCollide(Ball *ball, Bar *bar);
 
 int checkBarCollide(Ball *ball, Bar *bar, float *ratio);
+
+int checkBrickCollide(Ball *ball, Brick *brick);
 
 int checkBoxBoxCollide(Box *ball, Box *box);
 
@@ -26,6 +30,8 @@ int checkPointInCircle(int x, int y, Ball *ball);
 int checkPointInBox(Point *center, Box *box);
 
 int checkThrown(Vector *AC, Vector *AB, Vector *BC);
+
+int checkBrickCollideBySide(Ball *ball, Brick *brick);
 
 void brickCollide(Ball *ball, Level *level);
 

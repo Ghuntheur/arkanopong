@@ -7,9 +7,10 @@
 typedef struct Player{
 	Ball ball;
 	Bar bar;
+	int id;
 	int life;
 }Player;
 
-Player newPlayer(Ball ball, Bar bar, int life);
+Player newPlayer(Ball ball, Bar bar, int id);
 
 #endif

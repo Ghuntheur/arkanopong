@@ -61,7 +61,7 @@ void createPlayers(Game *game){
 	for(i=0; i<game->nbPlayers; i++){
 		pos = (i%2 == 0) ? -1 : 1;
 		game->players[i] = newPlayer(
-			newBall(newPoint(50, 360*pos - 20*pos), newVector(i+1, 2*i+1), newColor(255, 100*i, 50*i)),
+			newBall(newPoint(50, 360*pos - 20*pos), newVector(5, 2), newColor(255, 100*i, 50*i)),
 			newBar(newPoint(0, 360*pos), newColor(255, 100*i, 50*i)),
 			i
 		);
@@ -121,14 +121,15 @@ void play(Game *game){
 }
 
 void collide(Game *game){
-	int i;
-	/**
-	 * Pour chaque joeur, on teste la collison entre les balles et les barres
-	 *                                                   balles et les briques  
-	 */
+	int i, j, start; 
+
 	for(i=0; i<game->nbPlayers; i++){
-		/*barCollide(&game->players[i], game->nbPlayers);*/
 		brickCollide(&game->players[i].ball, &game->level);
+		
+		start = (game->players[i].ball.center.y > 0) ? 1 :0;
+		for(j=start; j<game->nbPlayers; j+=2){
+			barCollide(&game->players[i].ball, &game->players[j].bar);
+		}		
 	}
 }
 

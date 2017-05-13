@@ -1,11 +1,12 @@
 #include "player.h"
 
-Player newPlayer(Ball ball, Bar bar, int life){
+Player newPlayer(Ball ball, Bar bar, int id){
 	Player p;
 	
 	p.ball = ball;
 	p.bar  = bar;
-	p.life = life;
+	p.id   = id;
+	p.life = 3;
 
 	return p;
 }
