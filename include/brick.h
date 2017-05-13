@@ -14,12 +14,12 @@ typedef struct Brick{
 	int broken;
 
 	Point center;
-	float width;
-	float height;
+	int width;
+	int height;
 	Color color;
 }Brick;
 
-Brick newBrick(int value, float width, float height, int i, int j);
+Brick newBrick(int value, int width, int height, int i, int j);
 
 void drawBrick(Brick *brick);
 

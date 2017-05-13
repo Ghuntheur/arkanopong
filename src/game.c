@@ -61,7 +61,7 @@ void createPlayers(Game *game){
 	for(i=0; i<game->nbPlayers; i++){
 		pos = (i%2 == 0) ? -1 : 1;
 		game->players[i] = newPlayer(
-			newBall(newPoint(50, 360*pos - 20*pos), newVector(5, 2), newColor(255, 100*i, 50*i)),
+			newBall(newPoint(50, 360*pos - 20*pos), newVector(0, 0), newColor(255, 100*i, 50*i)),
 			newBar(newPoint(0, 360*pos), newColor(255, 100*i, 50*i)),
 			i
 		);
@@ -97,8 +97,13 @@ void play(Game *game){
                     if(ev.key.keysym.sym == SDLK_a || ev.key.keysym.sym == SDLK_z){
                         changeBarSpeed(&game->players[1].bar, ev.key.keysym.sym, SPEED_UP);
                     }
-                    break;
 
+                    if(ev.key.keysym.sym == SDLK_SPACE){
+                    	game->players[0].ball.speed.x = 1;
+                    	game->players[0].ball.speed.y = 1;
+                    }
+                    break;
+ 
                 case SDL_KEYUP:
                 	if(ev.key.keysym.sym == SDLK_LEFT || ev.key.keysym.sym == SDLK_RIGHT){
                         changeBarSpeed(&game->players[0].bar, ev.key.keysym.sym, SPEED_STOP);

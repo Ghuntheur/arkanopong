@@ -31,7 +31,7 @@ int checkPointInBox(Point *center, Box *box);
 
 int checkThrown(Vector *AC, Vector *AB, Vector *BC);
 
-int checkBrickCollideBySide(Ball *ball, Brick *brick);
+int checkBrickCollideBySide(Ball *ball, Box *box);
 
 void brickCollide(Ball *ball, Level *level);
 

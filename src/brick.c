@@ -1,6 +1,6 @@
 #include "brick.h"
 
-Brick newBrick(int value, float width, float height, int i, int j){
+Brick newBrick(int value, int width, int height, int i, int j){
 	Brick b;
 
 	b.type    = value/10;

@@ -33,7 +33,7 @@ Box newBoxFromBar(Bar *bar){
 void barCollide(Ball *ball, Bar *bar){
 	float ratio;
 	if(checkBarCollide(ball, bar, &ratio) == EXIT_SUCCESS){
-		ball->speed.y *= -1;
+		ball->speed.y *= -1;	
 	}
 }
 
@@ -163,9 +163,9 @@ int checkBrickCollide(Ball *ball, Brick *brick){
 	return EXIT_FAILURE;
 }
 
-int checkBrickCollideBySide(Ball *ball, Brick *brick){
-	if(ball->center.y <= brick->center.y+brick->height/2 &&
-	   ball->center.y >= brick->center.y-brick->height/2){
+int checkBrickCollideBySide(Ball *ball, Box *box){
+	if(ball->center.y < box->center.y+box->height/2 &&
+	   ball->center.y > box->center.y-box->height/2){
 		return EXIT_SUCCESS;
 	}
 	return EXIT_FAILURE;
@@ -176,9 +176,10 @@ void brickCollide(Ball *ball, Level *level){
 	for(i=0; i<level->width*level->height; i++){
 		if(checkBrickCollide(ball, &level->bricks[i]) == EXIT_SUCCESS){
 			if(level->bricks[i].broken == 0){
-				if(checkBrickCollideBySide(ball, &level->bricks[i]) == EXIT_SUCCESS){
+				Box box = newBoxFromBrick(&level->bricks[i]);
+				if(checkBrickCollideBySide(ball, &box) == EXIT_SUCCESS){
 					ball->speed.x *= -1;
-				}else{	
+				}else{
 					ball->speed.y *= -1;
 				}
 			}
