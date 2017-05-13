@@ -36,7 +36,7 @@ void barRun(Bar *bar){
 	}
 	if(bar->center.x + bar->width/2 > WINDOW_WIDTH/2){
 		bar->center.x = WINDOW_WIDTH/2 - bar->width/2;
-	}
+	}	
 }
 
 void changeBarSpeed(Bar *bar, int key, int type){

@@ -5,10 +5,12 @@
 Ball newBall(Point center, Vector speed, Color color){
 	Ball b;
 
-	b.center     = center;
-	b.speed      = speed;
-	b.radius     = 10;
-	b.color      = color;
+	b.center = center;
+	b.speed  = speed;
+	b.radius = 10;
+	b.color  = color;
+
+	b.thrown = 0;
 
 	return b;
 }
@@ -27,7 +29,21 @@ void ballDraw(Ball *ball){
 	glEnd();
 }
 
-void ballRun(Ball *ball){
+void changeBallSpeed(Ball *ball, int id, int type){
+	int dir;
+	switch(type){
+		case SPEED_START:
+			dir = (id%2 == 0) ? 2 : -2;
+			ball->speed.y = dir;
+			ball->thrown  = 1;
+			break;
+
+		default:
+			break;
+	}
+}
+
+void ballRun(Ball *ball, float xBar){
 	if(ball->center.x - ball->radius <= -WINDOW_WIDTH/2 || ball->center.x + ball->radius > WINDOW_WIDTH/2){
 		ball->speed.x *= -1;
 	}
@@ -35,11 +51,15 @@ void ballRun(Ball *ball){
 		ball->speed.y *= -1;
 	}
 
+	if(ball->thrown == 0){
+		ball->center.x = xBar;
+	}
+
 	ball->center.x += ball->speed.x;
 	ball->center.y += ball->speed.y;
 }
 
-void ballRender(Ball *ball){
-	ballRun(ball);
+void ballRender(Ball *ball, float xBar){
+	ballRun(ball, xBar);
 	ballDraw(ball);
 }
