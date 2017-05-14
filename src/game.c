@@ -89,9 +89,6 @@ void play(Game *game){
 
 	      	switch(ev.type){          
 	        	
-                /**
-                 * TODO: LAISSER TOUCHE ENFONCEE
-                 */
                 case SDL_KEYDOWN:
                 	key = ev.key.keysym.sym;
                 	for(i=0; i<game->nbPlayers; i++){
