@@ -11,6 +11,8 @@
 #include "variables.h"
 
 typedef struct Ball{
+	int id;
+
 	Point center;
 	Vector speed;
 	float radius;
@@ -19,13 +21,13 @@ typedef struct Ball{
 	int thrown;
 }Ball;
 
-Ball newBall(Point center, Vector speed, Color color);
+Ball newBall(Point center, Vector speed, Color color, int id);
 
 void ballDraw(Ball *ball);
 
 void ballRun(Ball *ball, float xBar);
 
-void changeBallSpeed(Ball *ball, int id, int type);
+void changeBallSpeed(Ball *ball, int type);
 
 void ballRender(Ball *ball, float xBar);
 

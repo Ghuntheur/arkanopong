@@ -2,8 +2,10 @@
 
 #include "ball.h"
 
-Ball newBall(Point center, Vector speed, Color color){
+Ball newBall(Point center, Vector speed, Color color, int id){
 	Ball b;
+
+	b.id     = id;
 
 	b.center = center;
 	b.speed  = speed;
@@ -29,11 +31,11 @@ void ballDraw(Ball *ball){
 	glEnd();
 }
 
-void changeBallSpeed(Ball *ball, int id, int type){
+void changeBallSpeed(Ball *ball, int type){
 	int dir;
 	switch(type){
 		case SPEED_START:
-			dir = (id%2 == 0) ? 2 : -2;
+			dir = (ball->id%2 == 0) ? 2 : -2;
 			ball->speed.y = dir;
 			ball->thrown  = 1;
 			break;
