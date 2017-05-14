@@ -10,6 +10,8 @@
 #include "variables.h"
 #include "init.h"
 #include "game.h"
+#include "control.h"
+#include "bonus.h"
 #include "player.h"
 #include "ball.h"
 #include "bar.h"

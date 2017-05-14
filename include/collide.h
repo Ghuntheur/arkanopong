@@ -2,6 +2,7 @@
 #define COLLIDE_H_
 
 #include "game.h"
+#include "bonus.h"
 
 typedef struct Box{
 	Point center;

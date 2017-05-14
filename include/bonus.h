@@ -1,7 +1,8 @@
 #ifndef BONUS_H_
 #define BONUS_H_
 
-#include "brick.h"
+#include "geometry.h"
+#include "color.h"
 
 typedef struct Bonus{
 	int type;
@@ -10,7 +11,12 @@ typedef struct Bonus{
 	int width;
 	int height;
 
+	int dropped;
 	int caught;
+
+	Color color;
 }Bonus;
 
-#endif;
+Bonus newBonus(int value, Point center);
+
+#endif

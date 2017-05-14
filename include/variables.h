@@ -35,4 +35,13 @@ typedef enum controlType{
 	CONTROL_START
 }controlType;
 
+typedef enum bonusType{
+	bonusStart,
+	BAR_BIGGER,
+	BAR_STICKY,
+	BALL_SPEED_DOWN,
+	BALL_BIGGER,
+	numberOfBonus
+}bonusType;
+
 #endif
