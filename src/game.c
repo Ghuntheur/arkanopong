@@ -127,7 +127,7 @@ void play(Game *game){
     	}
     }
 }
-
+	
 void collide(Game *game){
 	int i, j, start; 
 

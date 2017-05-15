@@ -10,7 +10,7 @@
 #include "color.h"
 
 typedef struct Brick{
-	int type; 
+	int life;
 	Bonus bonus;
 	int broken;
 
@@ -22,9 +22,13 @@ typedef struct Brick{
 
 Brick newBrick(int value, int width, int height, int i, int j);
 
+int checkBrickIsAlive(int life);
+
 void drawBrick(Brick *brick);
 
 Color colorizeBrick(int type);
+
+void changeBrickLife(Brick *brick);
 
 void checkBonus(Brick *brick);
 

@@ -3,7 +3,7 @@
 Brick newBrick(int value, int width, int height, int i, int j){
 	Brick b;
 
-	b.type    = value/10;
+	b.life    = value/10;
 	
 	b.broken  = 0;
 	
@@ -16,31 +16,31 @@ Brick newBrick(int value, int width, int height, int i, int j){
 	);
 
 	b.bonus = newBonus(value%10, b.center);
-	b.color = colorizeBrick(b.type);
+	b.color = colorizeBrick(b.life);
 
 	return b;
 }
 
 Color colorizeBrick(int type){
 	switch(type){
-		case FIRST:
+		case SIMPLE:
 			return newColor(255, 0, 0);
 			break;
 		
-		case SECOND:
+		case DOUBLE:
 			return newColor(0, 255, 0);
 			break;
 
-		case THIRD:
+		case TRIPLE:
 			return newColor(0, 0, 255);
 			break;
 
-		case FOURTH:
-			return newColor(255, 0, 255);
+		case UNBREAKABLE:
+			return newColor(255, 255, 255);
 			break;
 
 		default:
-			return newColor(255, 255, 255);
+			return newColor(255, 100, 255);
 			break;
 	}
 }
@@ -61,11 +61,23 @@ void drawBrick(Brick *brick){
 	glEnd();
 }
 
+void changeBrickLife(Brick *brick){
+	if(brick->life == UNBREAKABLE) return;
+	brick->life--;
+	if(checkBrickIsAlive(brick->life) == EXIT_FAILURE){
+		brick->broken = 1;
+	}
+}
+
+int checkBrickIsAlive(int life){
+	return (life > 0) ? EXIT_SUCCESS : EXIT_FAILURE;
+}
+
 void checkBonus(Brick *brick){
 	int i;
 	for(i=bonusStart+1; i<numberOfBonus; i++){
-		if(brick->type == i && brick->bonus.type != 0){
-			droppedBonus(&brick->bonus);
+		if(brick->life == i && brick->bonus.type != 0){
+			changeBonusState(&brick->bonus, BONUS_DROPPED);
 			return;			
 		}
 	}

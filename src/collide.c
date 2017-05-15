@@ -185,7 +185,7 @@ void brickCollide(Ball *ball, Level *level){
 				changeBonusDirection(&level->bricks[i].bonus, ball->id%2);
 				checkBonus(&level->bricks[i]);
 			}
-			level->bricks[i].broken = 1;
+			changeBrickLife(&level->bricks[i]);
 		}
 	}		
 }

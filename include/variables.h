@@ -23,10 +23,11 @@ typedef enum speed{
 }speed;
 
 typedef enum brickType{
-	FIRST,
-	SECOND, 
-	THIRD,
-	FOURTH
+	EMPTY,
+	SIMPLE, 
+	DOUBLE,
+	TRIPLE,
+	UNBREAKABLE,
 }brickType;
 
 typedef enum controlType{
@@ -43,5 +44,10 @@ typedef enum bonusType{
 	BALL_BIGGER,
 	numberOfBonus
 }bonusType;
+
+typedef enum bonusState{
+	BONUS_DROPPED,
+	BONUS_CAUGHT
+}bonusState;
 
 #endif

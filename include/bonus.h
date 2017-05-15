@@ -33,7 +33,7 @@ void changeBonusSpeed(Bonus *bonus, int type);
 
 void changeBonusDirection(Bonus *bonus, int direction);
 
-void droppedBonus(Bonus *bonus);
+void changeBonusState(Bonus *bonus, int state);
 
 void bonusRender(Bonus *bonus);
 

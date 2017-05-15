@@ -47,13 +47,23 @@ void changeBonusSpeed(Bonus *bonus, int type){
 	}
 }
 
-void changeBonusDirection(Bonus *bonus, int direction){
-	bonus->direction = (direction == 0) ? -1 : 1;
+void changeBonusState(Bonus *bonus, int state){
+	int type;
+	switch(state){
+		case BONUS_DROPPED:
+			bonus->dropped = 1;
+			type = SPEED_START;
+			break;
+		case BONUS_CAUGHT:
+			bonus->caught = 1;
+			type = SPEED_STOP;
+			break;
+	}
+	changeBonusSpeed(bonus, type);
 }
 
-void droppedBonus(Bonus *bonus){
-	bonus->dropped = 1;
-	changeBonusSpeed(bonus, SPEED_START);
+void changeBonusDirection(Bonus *bonus, int direction){
+	bonus->direction = (direction == 0) ? -1 : 1;
 }
 
 void bonusRender(Bonus *bonus){
