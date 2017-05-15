@@ -182,6 +182,7 @@ void brickCollide(Ball *ball, Level *level){
 				}else{
 					ball->speed.y *= -1;
 				}
+				changeBonusDirection(&level->bricks[i].bonus, ball->id%2);
 				checkBonus(&level->bricks[i]);
 			}
 			level->bricks[i].broken = 1;

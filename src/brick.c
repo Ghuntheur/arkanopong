@@ -12,7 +12,7 @@ Brick newBrick(int value, int width, int height, int i, int j){
 
 	b.center = newPoint(
 		-WINDOW_WIDTH/2 + b.width*(i+0.5),
-		-WINDOW_HEIGHT/2 + (WINDOW_HEIGHT-height*b.height)/2 + b.height*(j+0.5)
+		WINDOW_HEIGHT/2 - (WINDOW_HEIGHT-height*b.height)/2 - b.height*(j+0.5)
 	);
 
 	b.bonus = newBonus(value%10, b.center);
@@ -64,7 +64,8 @@ void drawBrick(Brick *brick){
 void checkBonus(Brick *brick){
 	int i;
 	for(i=bonusStart+1; i<numberOfBonus; i++){
-		if(brick->type == i){
+		if(brick->type == i && brick->bonus.type != 0){
+			droppedBonus(&brick->bonus);
 			return;			
 		}
 	}
