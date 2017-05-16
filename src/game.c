@@ -133,6 +133,7 @@ void collide(Game *game){
 
 	for(i=0; i<game->nbPlayers; i++){
 		brickCollide(&game->players[i].ball, &game->level);
+		bonusCollide(&game->players[i], &game->level);
 		
 		start = (game->players[i].ball.center.y > 0) ? 1 :0;
 		for(j=start; j<game->nbPlayers; j+=2){
@@ -151,6 +152,6 @@ void gameRender(Game *game){
 	for(i=0; i<game->nbPlayers; i++){
         ballRender(&game->players[i].ball, game->players[i].bar.center.x);
         barRender(&game->players[i].bar);
+        checkDisableBonus(&game->players[i]);
     }
-
 }

@@ -7,6 +7,8 @@ extern const int WINDOW_HEIGHT;
 extern const unsigned int BIT_PER_PIXEL;
 extern const unsigned int FRAMERATE_MILLISECONDS;
 
+extern const unsigned int BONUS_DURATION;
+
 typedef enum gameState{
 	LOADING,
 	SELECTING,
@@ -37,11 +39,17 @@ typedef enum controlType{
 }controlType;
 
 typedef enum bonusType{
-	bonusStart,
-	BAR_BIGGER,
-	BAR_STICKY,
+	BONUS_EMPTY,	
+	BAR_BIGGER,          
 	BALL_SPEED_DOWN,
-	BALL_BIGGER,
+	WIN_LIFE,
+	INVINCIBLE,
+	STICKY_BAR,
+
+	BAR_SMALLER,
+	BALL_SPEED_UP,
+	LOOSE_LIFE,
+	BAR_CLOSER,
 	numberOfBonus
 }bonusType;
 

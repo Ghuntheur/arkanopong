@@ -30,6 +30,16 @@ Box newBoxFromBar(Bar *bar){
 	return b;
 }
 
+Box newBoxFromBonus(Bonus *bonus){
+	Box b;
+
+	b.center = bonus->center;
+	b.width  = bonus->width;
+	b.height = bonus->height;
+
+	return b;
+}
+
 void barCollide(Ball *ball, Bar *bar){
 	float ratio;
 	if(checkBarCollide(ball, bar, &ratio) == EXIT_SUCCESS){
@@ -78,11 +88,11 @@ int checkBarCollide(Ball *ball, Bar *bar, float *ratio){
 	return EXIT_FAILURE;	
 }
 
-int checkBoxBoxCollide(Box *ball, Box *box){
-	if(ball->center.x + ball->width/2 >= box->center.x - box->width/2 &&
-	   ball->center.x - ball->width/2 <= box->center.x + box->width/2 &&
-	   ball->center.y + ball->height/2 >= box->center.y - box->height/2 &&
-	   ball->center.y - ball->height/2 <= box->center.y + box->height/2){
+int checkBoxBoxCollide(Box *A, Box *B){
+	if(A->center.x + A->width/2 >= B->center.x - B->width/2 &&
+	   A->center.x - A->width/2 <= B->center.x + B->width/2 &&
+	   A->center.y + A->height/2 >= B->center.y - B->height/2 &&
+	   A->center.y - A->height/2 <= B->center.y + B->height/2){
 		return EXIT_SUCCESS;
 	}
 	return EXIT_FAILURE;
@@ -171,6 +181,14 @@ int checkBrickCollideBySide(Ball *ball, Box *box){
 	return EXIT_FAILURE;
 }
 
+int checkBoxIsOutside(Box *box){
+	if(box->center.y + box->height/2 <= -WINDOW_HEIGHT/2 ||
+	   box->center.y - box->height/2 >=  WINDOW_HEIGHT/2){
+		return EXIT_SUCCESS;
+	}
+	return EXIT_FAILURE;
+}
+
 void brickCollide(Ball *ball, Level *level){
 	int i;
 	for(i=0; i<level->width*level->height; i++){
@@ -183,9 +201,27 @@ void brickCollide(Ball *ball, Level *level){
 					ball->speed.y *= -1;
 				}
 				changeBonusDirection(&level->bricks[i].bonus, ball->id%2);
+				changeBonusId(&level->bricks[i].bonus, ball->id);
 				checkBonus(&level->bricks[i]);
 			}
 			changeBrickLife(&level->bricks[i]);
 		}
 	}		
+}
+
+void bonusCollide(Player *player, Level *level){
+	int i;
+	for(i=0; i<level->width*level->height; i++){
+		if(level->bricks[i].bonus.dropped == 1 && level->bricks[i].bonus.caught != 1){
+			Box bonus = newBoxFromBonus(&level->bricks[i].bonus);
+			Box boxBar = newBoxFromBar(&player->bar);
+			if(checkBoxBoxCollide(&bonus, &boxBar) == EXIT_SUCCESS){
+				changeBonusState(&level->bricks[i].bonus, BONUS_CAUGHT);
+				applyBonus(player, level->bricks[i].bonus.type);
+			}
+			else if(checkBoxIsOutside(&bonus) == EXIT_SUCCESS){
+				changeBonusState(&level->bricks[i].bonus, BONUS_CAUGHT);
+			}
+		}
+	}
 }

@@ -25,6 +25,8 @@ void barRun(Bar *bar);
 
 void changeBarSpeed(Bar *bar, int key, int type);
 
+void changeBarSize(Bar *bar, int type);
+
 void barRender(Bar *bar);
 
 #endif

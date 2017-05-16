@@ -75,7 +75,7 @@ int checkBrickIsAlive(int life){
 
 void checkBonus(Brick *brick){
 	int i;
-	for(i=bonusStart+1; i<numberOfBonus; i++){
+	for(i=BONUS_EMPTY+1; i<numberOfBonus; i++){
 		if(brick->life == i && brick->bonus.type != 0){
 			changeBonusState(&brick->bonus, BONUS_DROPPED);
 			return;			

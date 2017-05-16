@@ -51,6 +51,6 @@ void levelRender(Level *level){
 		if(level->bricks[i].broken == 0){
 			drawBrick(&level->bricks[i]);
 		}
-		bonusRender(&level->bricks[i].bonus);
+		bonusRender(&level->bricks[i].bonus, level->bricks[i].broken);
 	}
 }

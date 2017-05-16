@@ -35,9 +35,11 @@ void changeBallSpeed(Ball *ball, int type){
 	int dir;
 	switch(type){
 		case SPEED_START:
-			dir = (ball->id%2 == 0) ? 2 : -2;
-			ball->speed.y = dir;
-			ball->thrown  = 1;
+			if(ball->thrown == 0){
+				dir = (ball->id%2 == 0) ? 2 : -2;
+				ball->speed.y = dir;
+				ball->thrown  = 1;
+			}			
 			break;
 
 		default:

@@ -5,10 +5,12 @@
 #include <GL/gl.h>
 
 #include "variables.h"
+#include "player.h"
 #include "geometry.h"
 #include "color.h"
 
 typedef struct Bonus{
+	int id;
 	int type;
 
 	Point center;
@@ -33,8 +35,16 @@ void changeBonusSpeed(Bonus *bonus, int type);
 
 void changeBonusDirection(Bonus *bonus, int direction);
 
+void changeBonusId(Bonus *bonus, int id);
+
 void changeBonusState(Bonus *bonus, int state);
 
-void bonusRender(Bonus *bonus);
+void bonusRender(Bonus *bonus, int broken);
+
+void applyBonus(Player *player, int bonus);
+
+void checkDisableBonus(Player *player);
+
+void disableBonus(Player *player);
 
 #endif

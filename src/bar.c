@@ -68,6 +68,21 @@ void changeBarSpeed(Bar *bar, int control, int type){
 	}	
 }
 
+void changeBarSize(Bar *bar, int type){
+	switch(type){
+		case BAR_BIGGER:
+			bar->width *= 2;
+			break;
+
+		case BAR_SMALLER:
+			bar->width *= 0.5;
+			break;
+
+		default:
+			break;
+	}
+}
+
 void barRender(Bar *bar){
 	barRun(bar);
 	barDraw(bar);

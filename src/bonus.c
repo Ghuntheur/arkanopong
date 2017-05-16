@@ -3,6 +3,7 @@
 Bonus newBonus(int value, Point center){
 	Bonus b;
 
+	b.id        = -1;
 	b.type      = value;
 	b.center    = center;
 	b.speed     = newVector(0, 0);
@@ -62,14 +63,57 @@ void changeBonusState(Bonus *bonus, int state){
 	changeBonusSpeed(bonus, type);
 }
 
+void changeBonusId(Bonus *bonus, int id){
+	bonus->id = id;
+}
+
 void changeBonusDirection(Bonus *bonus, int direction){
 	bonus->direction = (direction == 0) ? -1 : 1;
 }
 
-void bonusRender(Bonus *bonus){
-	if(bonus->dropped == 1 && bonus->caught != 1){
+void bonusRender(Bonus *bonus, int broken){
+	if(broken == 1 && bonus->dropped == 1 && bonus->caught != 1){
 		bonusRun(bonus);
 		bonusDraw(bonus);
 	}	
 }
 
+void applyBonus(Player *player, int bonus){
+	if(checkPlayerHasActiveBonus(player) == EXIT_SUCCESS) return;
+	changePlayerBonusParam(player, bonus, BONUS_CAUGHT);
+
+	switch(bonus){
+		case BAR_BIGGER:
+			changeBarSize(&player->bar, BAR_BIGGER);
+			break;
+		case BAR_SMALLER:
+			changeBarSize(&player->bar, BAR_SMALLER);
+			break;
+
+		default:
+			break;
+	}
+}
+
+void checkDisableBonus(Player *player){
+	if(checkPlayerHasActiveBonus(player) == EXIT_SUCCESS){
+		unsigned int currentTime = SDL_GetTicks();
+		printf("currentTime = %d  endBonus = %d\n", currentTime, player->bonusEndTime );
+		if(currentTime >= player->bonusEndTime){
+			printf("il faut supp\n");
+			disableBonus(player);			
+		}
+	}
+}
+
+void disableBonus(Player *player){
+	switch(player->bonusType){
+		case BAR_BIGGER:
+			changeBarSize(&player->bar, BAR_SMALLER);
+			break;
+		case BAR_SMALLER:
+			changeBarSize(&player->bar, BAR_BIGGER);
+			break;
+	}
+	changePlayerBonusParam(player, player->bonusType, BONUS_DROPPED);
+}
