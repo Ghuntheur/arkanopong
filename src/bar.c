@@ -1,8 +1,9 @@
 #include "bar.h"
 
-Bar newBar(Point center, Color color){
+Bar newBar(Point center, Color color, int id){
 	Bar b;
 
+	b.id     = id;
 	b.center = center;
 	b.width  = WINDOW_WIDTH/10;
 	b.height = 12;
@@ -79,6 +80,19 @@ void changeBarSize(Bar *bar, int type){
 			break;
 
 		default:
+			break;
+	}
+}
+
+void changeBarDistance(Bar *bar, int type){
+	int dir = (bar->id%2 == 0) ? 1 : -1;
+	switch(type){
+		case BAR_CLOSER:
+			bar->center.y += 100 * dir;
+			break;
+
+		case BAR_FURTHER:
+			bar->center.y -= 100 * dir;
 			break;
 	}
 }

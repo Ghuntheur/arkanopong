@@ -50,6 +50,7 @@ typedef enum bonusType{
 	BALL_SPEED_UP,
 	LOOSE_LIFE,
 	BAR_CLOSER,
+	BAR_FURTHER,
 	numberOfBonus
 }bonusType;
 

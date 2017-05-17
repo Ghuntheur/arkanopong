@@ -62,7 +62,7 @@ void createPlayers(Game *game){
 		pos = (i%2 == 0) ? -1 : 1;
 		game->players[i] = newPlayer(
 			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newColor(255, 100*i, 50*i), i),
-			newBar(newPoint(0, 360*pos), newColor(255, 100*i, 50*i)),
+			newBar(newPoint(0, 360*pos), newColor(255, 100*i, 50*i), i),
 			createControl(i),
 			i
 		);

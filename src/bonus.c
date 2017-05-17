@@ -89,6 +89,16 @@ void applyBonus(Player *player, int bonus){
 		case BAR_SMALLER:
 			changeBarSize(&player->bar, BAR_SMALLER);
 			break;
+		case BAR_CLOSER:
+			changeBarDistance(&player->bar, BAR_CLOSER);
+			break;
+
+		case BALL_SPEED_UP:
+			changeBallSpeed(&player->ball, SPEED_UP);
+			break;
+		case BALL_SPEED_DOWN:
+			changeBallSpeed(&player->ball, SPEED_DOWN);
+			break;
 
 		default:
 			break;
@@ -98,9 +108,7 @@ void applyBonus(Player *player, int bonus){
 void checkDisableBonus(Player *player){
 	if(checkPlayerHasActiveBonus(player) == EXIT_SUCCESS){
 		unsigned int currentTime = SDL_GetTicks();
-		printf("currentTime = %d  endBonus = %d\n", currentTime, player->bonusEndTime );
 		if(currentTime >= player->bonusEndTime){
-			printf("il faut supp\n");
 			disableBonus(player);			
 		}
 	}
@@ -113,6 +121,17 @@ void disableBonus(Player *player){
 			break;
 		case BAR_SMALLER:
 			changeBarSize(&player->bar, BAR_BIGGER);
+			break;
+		case BAR_CLOSER:
+			changeBarDistance(&player->bar, BAR_FURTHER);
+			break;
+
+
+		case BALL_SPEED_UP:
+			changeBallSpeed(&player->ball, SPEED_DOWN);
+			break;
+		case BALL_SPEED_DOWN:
+			changeBallSpeed(&player->ball, SPEED_UP);
 			break;
 	}
 	changePlayerBonusParam(player, player->bonusType, BONUS_DROPPED);

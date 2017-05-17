@@ -10,6 +10,8 @@
 #include "color.h"
 
 typedef struct Bar{
+	int id;
+
 	Point center;
 	float width;
 	float height;
@@ -17,7 +19,7 @@ typedef struct Bar{
 	Color color;
 }Bar;
 
-Bar newBar(Point center, Color color);
+Bar newBar(Point center, Color color, int id);
 
 void barDraw(Bar *bar);
 
@@ -26,6 +28,8 @@ void barRun(Bar *bar);
 void changeBarSpeed(Bar *bar, int key, int type);
 
 void changeBarSize(Bar *bar, int type);
+
+void changeBarDistance(Bar *bar, int type);
 
 void barRender(Bar *bar);
 

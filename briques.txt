@@ -23,14 +23,14 @@ En pratique
 	Pour les bonus :  
 
 		BONUS
-		- 0 : pas de bonus
-		- 1 : barre augmente de taille
-		- 2 : balle ralentie
+done	- 0 : pas de bonus
+done	- 1 : barre augmente de taille
+done	- 2 : balle ralentie
 		- 3 : rajouter un point de vie
 		- 4 : sticky barre
 		- 5 : invincible
 		MALUS
-		- 6 : barre diminue de taille
-		- 7 : balle va plus vite
+done	- 6 : barre diminue de taille
+done	- 7 : balle va plus vite
 		- 8 : perd un point de vie
-		- 9 : barre est plus haute 
+done	- 9 : barre est plus haute 

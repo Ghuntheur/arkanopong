@@ -42,6 +42,16 @@ void changeBallSpeed(Ball *ball, int type){
 			}			
 			break;
 
+		case SPEED_UP:
+			ball->speed.x *= 3;
+			ball->speed.y *= 3;
+			break;
+
+		case SPEED_DOWN:
+			ball->speed.x /= 3;
+			ball->speed.y /= 3;
+			break;
+
 		default:
 			break;
 	}
