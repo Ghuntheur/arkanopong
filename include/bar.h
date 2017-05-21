@@ -5,23 +5,32 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 
+#include "variables.h"
 #include "geometry.h"
 #include "color.h"
 
-extern int WINDOW_WIDTH;
-extern int WINDOW_HEIGHT;
-
 typedef struct Bar{
+	int id;
+
 	Point center;
 	float width;
 	float height;
+	float speed;
 	Color color;
 }Bar;
 
-Bar newBar(Point center, float width, float height, Color color);
+Bar newBar(Point center, Color color, int id);
 
 void barDraw(Bar *bar);
 
-void barMove(Bar *bar, int key);
+void barRun(Bar *bar);
+
+void changeBarSpeed(Bar *bar, int key, int type);
+
+void changeBarSize(Bar *bar, int type);
+
+void changeBarDistance(Bar *bar, int type);
+
+void barRender(Bar *bar);
 
 #endif

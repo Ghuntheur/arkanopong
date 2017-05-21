@@ -25,3 +25,16 @@ Vector newVector(float x, float y){
 
 	return v;
 }
+
+Vector newVectorFromPoint(Point *A, Point *B){
+	Vector v;
+	
+	v.x = B->x - A->x;
+	v.y = B->y - A->y;
+
+	return v;
+}
+
+float dotProduct(Vector *A, Vector *B){
+	return A->x*B->x + A->y*B->y;
+}

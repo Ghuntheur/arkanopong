@@ -2,13 +2,17 @@
 
 #include "ball.h"
 
-Ball newBall(Point center, Vector speed, float radius, Color color){
+Ball newBall(Point center, Vector speed, Color color, int id){
 	Ball b;
 
-	b.center     = center;
-	b.speed      = speed;
-	b.radius     = radius;
-	b.color      = color;
+	b.id     = id;
+
+	b.center = center;
+	b.speed  = speed;
+	b.radius = 10;
+	b.color  = color;
+
+	b.thrown = 0;
 
 	return b;
 }
@@ -27,7 +31,34 @@ void ballDraw(Ball *ball){
 	glEnd();
 }
 
-void ballRun(Ball *ball){
+
+void changeBallSpeed(Ball *ball, int type){
+	int dir;
+	switch(type){
+		case SPEED_START:
+			if(ball->thrown == 0){
+				dir = (ball->id%2 == 0) ? 2 : -2;
+				ball->speed.y = dir;
+				ball->thrown  = 1;
+			}			
+			break;
+
+		case SPEED_UP:
+			ball->speed.x *= 3;
+			ball->speed.y *= 3;
+			break;
+
+		case SPEED_DOWN:
+			ball->speed.x /= 3;
+			ball->speed.y /= 3;
+			break;
+
+		default:
+			break;
+	}
+}
+
+void ballRun(Ball *ball, float xBar){
 	if(ball->center.x - ball->radius <= -WINDOW_WIDTH/2 || ball->center.x + ball->radius > WINDOW_WIDTH/2){
 		ball->speed.x *= -1;
 	}
@@ -35,11 +66,16 @@ void ballRun(Ball *ball){
 		ball->speed.y *= -1;
 	}
 
+	if(ball->thrown == 0){
+		ball->center.x = xBar;
+	}
+
 	ball->center.x += ball->speed.x;
 	ball->center.y += ball->speed.y;
 }
 
-void ballRender(Ball *ball){
-	ballRun(ball);
+
+void ballRender(Ball *ball, float xBar){
+	ballRun(ball, xBar);
 	ballDraw(ball);
 }

@@ -1,9 +1,30 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+<<<<<<< HEAD
+=======
 
 #include <SDL/SDL.h>
 
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+#include "variables.h"
+#include "init.h"
+#include "game.h"
+#include "control.h"
+#include "bonus.h"
+#include "player.h"
+#include "ball.h"
+#include "bar.h"
+#include "collide.h"
+#include "level.h"
+#include "brick.h"
+>>>>>>> brick
+
+#include <SDL/SDL.h>
+
+<<<<<<< HEAD
 #include <GL/gl.h>
 #include <GL/glu.h>
 
@@ -108,5 +129,11 @@ int main(int argc, char** argv) {
   
   	SDL_Quit();
   
+=======
+    Game game = newGame();	 	
+
+    update(&game);
+
+>>>>>>> brick
   	return EXIT_SUCCESS;
 }
