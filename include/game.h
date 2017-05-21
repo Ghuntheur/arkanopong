@@ -28,4 +28,6 @@ void collide(Game *game);
 
 void gameRender(Game *game);
 
+void loseBall(Game *game);
+
 #endif

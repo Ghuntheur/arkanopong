@@ -15,20 +15,25 @@ typedef struct Ball{
 
 	Point center;
 	Vector speed;
+	float vitesse;
+	int dirY;
 	float radius;
 	Color color;
 
 	int thrown;
+	int lost;
 }Ball;
 
 Ball newBall(Point center, Vector speed, Color color, int id);
 
 void ballDraw(Ball *ball);
 
-void ballRun(Ball *ball, float xBar);
+void ballRun(Ball *ball, float xBar, float wBar);
 
 void changeBallSpeed(Ball *ball, int type);
 
-void ballRender(Ball *ball, float xBar);
+void ballRender(Ball *ball, float xBar, float wBar);
+
+void ballLost(Ball *ball);
 
 #endif

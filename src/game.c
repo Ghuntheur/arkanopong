@@ -43,6 +43,8 @@ void update(Game *game){
 			break;
 
 		case OVER:
+			printf("Game Over\n");
+			/*Appel du menu*/
 			break;
 
 		default:
@@ -77,6 +79,7 @@ void play(Game *game){
 
     	gameRender(game);
         collide(game);
+        loseBall(game);
 
   		SDL_GL_SwapBuffers();
 
@@ -150,8 +153,28 @@ void gameRender(Game *game){
 	levelRender(&game->level);
 
 	for(i=0; i<game->nbPlayers; i++){
-        ballRender(&game->players[i].ball, game->players[i].bar.center.x);
+        ballRender(&game->players[i].ball, game->players[i].bar.center.x, game->players[i].bar.width);
         barRender(&game->players[i].bar);
         checkDisableBonus(&game->players[i]);
     }
+}
+
+void loseBall(Game *game){
+	int i, pos;
+	for(i=0; i<game->nbPlayers; i++){
+		if(game->players[i].ball.lost == 1){
+			/* printf("coucou\n");*/
+			if(game->players[i].life > 1){
+				game->players[i].life--;
+				printf("%d lifes left for player %d\n", game->players[i].life, game->players[i].id);
+				pos = (i%2 == 0) ? -1 : 1;
+				game->players[i].ball = newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newColor(255, 100*i, 50*i), i);
+			}
+			else{
+				printf("This is the end, player n%d\n", game->players[i].id);
+				game->gameState = OVER;
+				update(game);
+			}
+		}
+	}
 }
