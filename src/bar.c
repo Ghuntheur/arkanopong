@@ -1,14 +1,14 @@
 #include "bar.h"
 
-Bar newBar(Point center, Color color, int id){
+Bar newBar(Point center, Texture texture, int id){
 	Bar b;
 
-	b.id     = id;
-	b.center = center;
-	b.width  = WINDOW_WIDTH/10;
-	b.height = 12;
-	b.speed  = 0;
-	b.color  = color;
+	b.id      = id;
+	b.center  = center;
+	b.width   = WINDOW_WIDTH/10;
+	b.height  = 12;
+	b.speed   = 0;
+	b.texture = texture;
 
 	return b;
 }
@@ -20,13 +20,18 @@ void barDraw(Bar *bar){
 	float x = bar->center.x;
 	float y = bar->center.y;
 
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, bar->texture.memory);
+
 	glBegin(GL_QUADS);
-	glColor3ub(bar->color.r, bar->color.g, bar->color.b);
-		glVertex2f(x-w, y+h);
-		glVertex2f(x+w, y+h);
-		glVertex2f(x+w, y-h);
-		glVertex2f(x-w, y-h);
+		glTexCoord2f(0, 0); glVertex2f(x-w, y+h); 
+		glTexCoord2f(1, 0); glVertex2f(x+w, y+h); 
+		glTexCoord2f(1, 1); glVertex2f(x+w, y-h); 
+		glTexCoord2f(0, 1); glVertex2f(x-w, y-h); 
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);	
 }
 
 void barRun(Bar *bar){

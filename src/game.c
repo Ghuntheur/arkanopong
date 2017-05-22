@@ -3,6 +3,7 @@
 Game newGame(){
 	Game g;
 	g.gameState = LOADING;
+	strcpy(g.textureFolder, "textures/1/");
 	return g;
 }
 
@@ -61,8 +62,8 @@ void createPlayers(Game *game){
 	for(i=0; i<game->nbPlayers; i++){
 		pos = (i%2 == 0) ? -1 : 1;
 		game->players[i] = newPlayer(
-			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newColor(255, 100*i, 50*i), i),
-			newBar(newPoint(0, 360*pos), newColor(255, 100*i, 50*i), i),
+			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "bar.jpg"), i),
+			newBar(newPoint(0, 360*pos), newTexture(game->textureFolder, "bar.jpg"), i),
 			createControl(i),
 			i
 		);

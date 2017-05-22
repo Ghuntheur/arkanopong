@@ -7,7 +7,7 @@
 
 #include "variables.h"
 #include "geometry.h"
-#include "color.h"
+#include "texture.h"
 
 typedef struct Bar{
 	int id;
@@ -16,10 +16,11 @@ typedef struct Bar{
 	float width;
 	float height;
 	float speed;
-	Color color;
+
+	Texture texture;
 }Bar;
 
-Bar newBar(Point center, Color color, int id);
+Bar newBar(Point center, Texture texture, int id);
 
 void barDraw(Bar *bar);
 

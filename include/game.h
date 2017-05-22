@@ -13,6 +13,7 @@ typedef struct Game{
 	int nbPlayers;
 	Player *players;
 	int gameState;
+	char textureFolder[100];
 	Level level;
 }Game;
 

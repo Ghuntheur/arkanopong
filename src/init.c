@@ -17,11 +17,11 @@ void setVideoMode() {
 }
 
 int initSDL(){
-     if(SDL_Init(SDL_INIT_VIDEO) == -1){
-          fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
-          return EXIT_FAILURE;
-     }
-     setVideoMode();
+    if(SDL_Init(SDL_INIT_VIDEO) == -1){
+        fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
+        return EXIT_FAILURE;
+    }
+    setVideoMode();
      
-     return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }

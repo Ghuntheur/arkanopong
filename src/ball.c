@@ -2,17 +2,17 @@
 
 #include "ball.h"
 
-Ball newBall(Point center, Vector speed, Color color, int id){
+Ball newBall(Point center, Vector speed, Texture texture, int id){
 	Ball b;
 
-	b.id     = id;
-
-	b.center = center;
-	b.speed  = speed;
-	b.radius = 10;
-	b.color  = color;
-
-	b.thrown = 0;
+	b.id      = id;
+	
+	b.center  = center;
+	b.speed   = speed;
+	b.radius  = 10;
+	b.texture = texture;
+	
+	b.thrown  = 0;
 
 	return b;
 }
@@ -21,14 +21,20 @@ void ballDraw(Ball *ball){
 	int i;
 	int precision = 360;
 	
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, ball->texture.memory);
+
 	glBegin(GL_POLYGON);
-	glColor3ub(ball->color.r, ball->color.g, ball->color.b);
 
 	for(i=0; i<precision; i++){
 		float rad = 2*i*M_PI/precision;
+		glTexCoord2f(cos(rad), sin(rad));
 		glVertex2f(ball->center.x + cos(rad) * ball->radius, ball->center.y + sin(rad) * ball->radius);
 	}
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);	
 }
 
 void changeBallSpeed(Ball *ball, int type){

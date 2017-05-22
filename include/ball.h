@@ -6,7 +6,7 @@
 #include <GL/gl.h>
 
 #include "geometry.h"
-#include "color.h"
+#include "texture.h"
 
 #include "variables.h"
 
@@ -16,12 +16,12 @@ typedef struct Ball{
 	Point center;
 	Vector speed;
 	float radius;
-	Color color;
-
 	int thrown;
+
+	Texture texture;
 }Ball;
 
-Ball newBall(Point center, Vector speed, Color color, int id);
+Ball newBall(Point center, Vector speed, Texture texture, int id);
 
 void ballDraw(Ball *ball);
 
