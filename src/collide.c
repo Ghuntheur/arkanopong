@@ -43,7 +43,11 @@ Box newBoxFromBonus(Bonus *bonus){
 void barCollide(Ball *ball, Bar *bar){
 	float ratio;
 	if(checkBarCollide(ball, bar, &ratio) == EXIT_SUCCESS){
-		ball->speed.y *= -1;	
+		float indiceAngle = (ball->center.x - bar->center.x) / (bar->width / 2);
+		printf("indiceAngle : %f\n", indiceAngle);
+		ball->speed.x += indiceAngle;
+		ball->speed.y += sqrt(fabs(ball->vitesse * ball->vitesse - ball->speed.x * ball->speed.x)) * ball->dirY;
+		ball->dirY *= -1;
 	}
 }
 
@@ -81,7 +85,7 @@ int checkBarCollide(Ball *ball, Bar *bar, float *ratio){
 	Vector AD = newVectorFromPoint(&A, &D);
 
 	if(checkThrown(&AC, &AB, &BC) == EXIT_SUCCESS || checkThrown(&AC, &AD, &DC) == EXIT_SUCCESS){
-		ball->speed.y *= -1;
+		ball->dirY *= -1;
 		return EXIT_SUCCESS;
 	}
 
@@ -198,7 +202,7 @@ void brickCollide(Ball *ball, Level *level){
 				if(checkBrickCollideBySide(ball, &box) == EXIT_SUCCESS){
 					ball->speed.x *= -1;
 				}else{
-					ball->speed.y *= -1;
+					ball->dirY *= -1;
 				}
 				changeBonusDirection(&level->bricks[i].bonus, ball->id%2);
 				changeBonusId(&level->bricks[i].bonus, ball->id);

@@ -1,18 +1,25 @@
 #define _GNU_SOURCE
 
+#include <math.h>
+
 #include "ball.h"
 
 Ball newBall(Point center, Vector speed, Texture texture, int id){
 	Ball b;
 
-	b.id      = id;
+
 	
-	b.center  = center;
-	b.speed   = speed;
-	b.radius  = 10;
+	b.id     = id;
+
+	b.center = center;
+	b.speed  = speed;
+	b.vitesse = 0;
+	b.dirY = 1;
+	b.radius = 10;
 	b.texture = texture;
-	
-	b.thrown  = 0;
+
+	b.thrown = 0;
+	b.lost 	 = 0;
 
 	return b;
 }
@@ -42,20 +49,21 @@ void changeBallSpeed(Ball *ball, int type){
 	switch(type){
 		case SPEED_START:
 			if(ball->thrown == 0){
-				dir = (ball->id%2 == 0) ? 2 : -2;
-				ball->speed.y = dir;
+				dir = (ball->id%2 == 0) ? 1 : -1;
+				ball->vitesse = 2;
+				ball->dirY = dir;
 				ball->thrown  = 1;
 			}			
 			break;
 
 		case SPEED_UP:
 			ball->speed.x *= 3;
-			ball->speed.y *= 3;
+			/*ball->speed.y *= 3;*/
 			break;
 
 		case SPEED_DOWN:
 			ball->speed.x /= 3;
-			ball->speed.y /= 3;
+			/*ball->speed.y /= 3;*/
 			break;
 
 		default:
@@ -63,12 +71,15 @@ void changeBallSpeed(Ball *ball, int type){
 	}
 }
 
-void ballRun(Ball *ball, float xBar){
+void ballRun(Ball *ball, float xBar, float wBar){
 	if(ball->center.x - ball->radius <= -WINDOW_WIDTH/2 || ball->center.x + ball->radius > WINDOW_WIDTH/2){
+		printf("hello\n");
 		ball->speed.x *= -1;
+		
 	}
-	if(ball->center.y - ball->radius <= -WINDOW_HEIGHT/2 || ball->center.y + ball->radius > WINDOW_HEIGHT/2){
-		ball->speed.y *= -1;
+	if(ball->center.y + ball->radius <= -WINDOW_HEIGHT/2 || ball->center.y - ball->radius > WINDOW_HEIGHT/2){
+		/*ball->speed.y *= -1;*/
+		ballLost(ball);
 	}
 
 	if(ball->thrown == 0){
@@ -76,10 +87,23 @@ void ballRun(Ball *ball, float xBar){
 	}
 
 	ball->center.x += ball->speed.x;
-	ball->center.y += ball->speed.y;
+	if(ball->speed.x == 0){
+		ball->center.y += ball->vitesse * ball->dirY; 
+		printf("dirY      : %d\n", ball->dirY);
+	}
+	else{
+		printf("dirY : %d\n", ball->dirY);
+		ball->center.y += sqrt(fabs((ball->vitesse * ball->vitesse) - (ball->speed.x * ball->speed.x))) * ball->dirY;
+		printf("reslt = %f\n", ball->center.y);
+
+	}
 }
 
-void ballRender(Ball *ball, float xBar){
-	ballRun(ball, xBar);
+void ballRender(Ball *ball, float xBar, float wBar){
+	ballRun(ball, xBar, wBar);
 	ballDraw(ball);
+}
+
+void ballLost(Ball *ball){
+	ball->lost = 1;
 }
