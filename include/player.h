@@ -27,4 +27,6 @@ int checkPlayerHasActiveBonus(Player *player);
 
 void changePlayerBonusParam(Player *player, int bonus, int state);
 
+void changePlayerLife(Player *player, int type);
+
 #endif

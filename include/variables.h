@@ -59,4 +59,5 @@ typedef enum bonusState{
 	BONUS_CAUGHT
 }bonusState;
 
+
 #endif

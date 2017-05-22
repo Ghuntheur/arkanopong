@@ -40,3 +40,18 @@ void changePlayerBonusParam(Player *player, int bonus, int state){
 			break;
 	}	
 }
+
+void changePlayerLife(Player *player, int type){
+	switch(type){
+		case WIN_LIFE:
+			player->life++;
+			break;
+
+		case LOOSE_LIFE:
+			player->life--;
+			break;
+
+		default:
+			break;
+	}
+}

@@ -26,11 +26,11 @@ En pratique
 done	- 0 : pas de bonus
 done	- 1 : barre augmente de taille
 done	- 2 : balle ralentie
-		- 3 : rajouter un point de vie
+done	- 3 : rajouter un point de vie
 		- 4 : sticky barre
 		- 5 : invincible
 		MALUS
 done	- 6 : barre diminue de taille
 done	- 7 : balle va plus vite
-		- 8 : perd un point de vie
+done	- 8 : perd un point de vie
 done	- 9 : barre est plus haute 

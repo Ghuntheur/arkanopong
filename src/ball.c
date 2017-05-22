@@ -73,7 +73,6 @@ void changeBallSpeed(Ball *ball, int type){
 
 void ballRun(Ball *ball, float xBar, float wBar){
 	if(ball->center.x - ball->radius <= -WINDOW_WIDTH/2 || ball->center.x + ball->radius > WINDOW_WIDTH/2){
-		printf("hello\n");
 		ball->speed.x *= -1;
 		
 	}
@@ -89,12 +88,12 @@ void ballRun(Ball *ball, float xBar, float wBar){
 	ball->center.x += ball->speed.x;
 	if(ball->speed.x == 0){
 		ball->center.y += ball->vitesse * ball->dirY; 
-		printf("dirY      : %d\n", ball->dirY);
+		/*printf("dirY      : %d\n", ball->dirY);*/
 	}
 	else{
-		printf("dirY : %d\n", ball->dirY);
+		/*printf("dirY : %d\n", ball->dirY);*/
 		ball->center.y += sqrt(fabs((ball->vitesse * ball->vitesse) - (ball->speed.x * ball->speed.x))) * ball->dirY;
-		printf("reslt = %f\n", ball->center.y);
+		/*printf("reslt = %f\n", ball->center.y);*/
 
 	}
 }

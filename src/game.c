@@ -164,12 +164,11 @@ void loseBall(Game *game){
 	int i, pos;
 	for(i=0; i<game->nbPlayers; i++){
 		if(game->players[i].ball.lost == 1){
-			/* printf("coucou\n");*/
 			if(game->players[i].life > 1){
-				game->players[i].life--;
+				changePlayerLife(&game->players[i], LOOSE_LIFE);
 				printf("%d lifes left for player %d\n", game->players[i].life, game->players[i].id);
 				pos = (i%2 == 0) ? -1 : 1;
-				game->players[i].ball = newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newColor(255, 100*i, 50*i), i);
+				game->players[i].ball = newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.jpg"), i);
 			}
 			else{
 				printf("This is the end, player n%d\n", game->players[i].id);

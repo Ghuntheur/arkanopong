@@ -104,12 +104,18 @@ void applyBonus(Player *player, int bonus){
 		case BAR_CLOSER:
 			changeBarDistance(&player->bar, BAR_CLOSER);
 			break;
+		case WIN_LIFE:
+			changePlayerLife(player, WIN_LIFE);
+			break;
 
 		case BALL_SPEED_UP:
 			changeBallSpeed(&player->ball, SPEED_UP);
 			break;
 		case BALL_SPEED_DOWN:
 			changeBallSpeed(&player->ball, SPEED_DOWN);
+			break;
+		case LOOSE_LIFE:
+			changePlayerLife(player, LOOSE_LIFE);
 			break;
 
 		default:
