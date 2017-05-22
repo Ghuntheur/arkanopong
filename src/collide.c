@@ -45,9 +45,10 @@ void barCollide(Ball *ball, Bar *bar){
 	if(checkBarCollide(ball, bar, &ratio) == EXIT_SUCCESS){
 		float indiceAngle = (ball->center.x - bar->center.x) / (bar->width / 2);
 		printf("indiceAngle : %f\n", indiceAngle);
+		ball->vitesse += fabs(indiceAngle) / 10;
 		ball->speed.x += indiceAngle;
-		ball->speed.y += sqrt(fabs(ball->vitesse * ball->vitesse - ball->speed.x * ball->speed.x)) * ball->dirY;
 		ball->dirY *= -1;
+		ball->speed.y += sqrt(ball->vitesse * ball->vitesse - fabs(ball->speed.x) * fabs(ball->speed.x)) * ball->dirY;
 	}
 }
 

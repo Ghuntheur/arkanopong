@@ -42,7 +42,8 @@ void changeBallSpeed(Ball *ball, int type){
 		case SPEED_START:
 			if(ball->thrown == 0){
 				dir = (ball->id%2 == 0) ? 1 : -1;
-				ball->vitesse = 2;
+				ball->vitesse = 2.0;
+				printf("vitesse : %f\n", ball->vitesse);
 				ball->dirY = dir;
 				ball->thrown  = 1;
 			}			
@@ -81,12 +82,15 @@ void ballRun(Ball *ball, float xBar, float wBar){
 	ball->center.x += ball->speed.x;
 	if(ball->speed.x == 0){
 		ball->center.y += ball->vitesse * ball->dirY; 
-		printf("dirY      : %d\n", ball->dirY);
+		/*printf("dirY      : %d\n", ball->dirY);*/
 	}
 	else{
+		if(fabs(ball->speed.x) > ball->vitesse){
+			ball->speed.x = ball->vitesse - ball->vitesse/10;
+		}
 		printf("dirY : %d\n", ball->dirY);
-		ball->center.y += sqrt(fabs((ball->vitesse * ball->vitesse) - (ball->speed.x * ball->speed.x))) * ball->dirY;
-		printf("reslt = %f\n", ball->center.y);
+		ball->center.y += sqrt(ball->vitesse * ball->vitesse - fabs(ball->speed.x) * fabs(ball->speed.x)) * ball->dirY;
+		printf("ball->vitesse = %f - ball->speed.x = %f - vv-xx = %f - sqrt(vv-xx) = %f - ball->center.y = %f\n", ball->vitesse, ball->speed.x, ball->vitesse * ball->vitesse - fabs(ball->speed.x) * fabs(ball->speed.x), sqrt(ball->vitesse * ball->vitesse - fabs(ball->speed.x) * fabs(ball->speed.x)), ball->center.y);
 
 	}
 }
