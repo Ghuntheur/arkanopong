@@ -22,10 +22,12 @@ typedef struct Bonus{
 	int dropped;
 	int caught;
 
-	Color color;
+	Texture texture;
 }Bonus;
 
-Bonus newBonus(int value, Point center);
+Bonus newBonus(int value, Point center, char *textureFolder);
+
+char *texturizeBonus(int type);
 
 void BonusRun(Bonus *bonus);
 

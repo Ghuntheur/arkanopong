@@ -15,7 +15,7 @@ Brick newBrick(int value, int width, int height, int i, int j, char *textureFold
 		WINDOW_HEIGHT/2 - (WINDOW_HEIGHT-height*b.height)/2 - b.height*(j+0.5)
 	);
 
-	b.bonus = newBonus(value%10, b.center);
+	b.bonus = newBonus(value%10, b.center, textureFolder);
 	b.texture = newTexture(textureFolder, texturizeBrick(b.life));
 
 	return b;

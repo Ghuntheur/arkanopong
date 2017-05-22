@@ -1,6 +1,6 @@
 #include "bonus.h"
 
-Bonus newBonus(int value, Point center){
+Bonus newBonus(int value, Point center, char *textureFolder){
 	Bonus b;
 
 	b.id        = -1;
@@ -8,13 +8,20 @@ Bonus newBonus(int value, Point center){
 	b.center    = center;
 	b.speed     = newVector(0, 0);
 	b.direction = 0;
-	b.color     = newColor(255, 255, 255);
+	b.texture   = newTexture(textureFolder, texturizeBonus(b.type));
 	b.width     = 16;
 	b.height    = 32;
 	b.dropped   = 0;
 	b.caught    = 0;
 
 	return b;
+}
+
+char *texturizeBonus(int type){
+	if(type > BONUS_EMPTY+1 && type < STICKY_BAR+1) return "bonus.jpg";
+	else if(type > STICKY_BAR && type < numberOfBonus) return "malus.jpg";
+
+	return "bonus.jpg";
 }
 
 void bonusRun(Bonus *bonus){
@@ -28,13 +35,18 @@ void bonusDraw(Bonus *bonus){
 	float x = bonus->center.x;
 	float y = bonus->center.y;
 
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, bonus->texture.memory);
+
 	glBegin(GL_QUADS);
-	glColor3ub(bonus->color.r, bonus->color.g, bonus->color.b);
-		glVertex2f(x-w, y+h);
-		glVertex2f(x+w, y+h);
-		glVertex2f(x+w, y-h);
-		glVertex2f(x-w, y-h);
-	glEnd(); 
+		glTexCoord2f(0, 0); glVertex2f(x-w, y+h); 
+		glTexCoord2f(1, 0); glVertex2f(x+w, y+h); 
+		glTexCoord2f(1, 1); glVertex2f(x+w, y-h); 
+		glTexCoord2f(0, 1); glVertex2f(x-w, y-h); 
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);	
 }
 
 void changeBonusSpeed(Bonus *bonus, int type){
