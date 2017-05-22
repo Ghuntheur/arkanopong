@@ -7,7 +7,7 @@
 #include "variables.h"
 #include "geometry.h"
 #include "bonus.h"
-#include "color.h"
+#include "texture.h"
 
 typedef struct Brick{
 	int life;
@@ -17,16 +17,17 @@ typedef struct Brick{
 	Point center;
 	int width;
 	int height;
-	Color color;
+	
+	Texture texture;
 }Brick;
 
-Brick newBrick(int value, int width, int height, int i, int j);
+Brick newBrick(int value, int width, int height, int i, int j, char *textureFolder);
 
 int checkBrickIsAlive(int life);
 
 void drawBrick(Brick *brick);
 
-Color colorizeBrick(int type);
+char *texturizeBrick(int type);
 
 void changeBrickLife(Brick *brick);
 

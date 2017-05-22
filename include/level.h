@@ -13,13 +13,13 @@ typedef struct Level{
 	Brick *bricks;
 }Level;
 
-int buildLevel(Level *level);
+int buildLevel(Level *level, char *textureFolder);
 
 FILE *initLevel(Level *level);
 
 int allocBricksMemory(Level *level);
 
-int createBricks(Level *level, FILE *file);
+int createBricks(Level *level, FILE *file, char *textureFolder);
 
 void levelRender(Level *level);
 

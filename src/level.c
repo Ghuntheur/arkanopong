@@ -1,10 +1,10 @@
 #include "level.h"
 
-int buildLevel(Level *level){
+int buildLevel(Level *level, char *textureFolder){
 	FILE *file = initLevel(level);
 	if(file == NULL) return EXIT_FAILURE;
 	if(allocBricksMemory(level) == EXIT_FAILURE) return EXIT_FAILURE;
-	if(createBricks(level, file) == EXIT_FAILURE) return EXIT_FAILURE;
+	if(createBricks(level, file, textureFolder) == EXIT_FAILURE) return EXIT_FAILURE;
 	
 	return EXIT_SUCCESS;
 }
@@ -31,12 +31,12 @@ int allocBricksMemory(Level *level){
 	return EXIT_SUCCESS;
 }
 
-int createBricks(Level *level, FILE *file){
+int createBricks(Level *level, FILE *file, char *textureFolder){
 	int i, j, num, count = 0;
 	for(j=0; j<level->height; j++){
 		for(i=0; i<level->width; i++){
 			fscanf(file, "%d ", &num);
-			level->bricks[count] = newBrick(num, level->width, level->height, i, j);
+			level->bricks[count] = newBrick(num, level->width, level->height, i, j, textureFolder);
 			count++;
 		}
 	}

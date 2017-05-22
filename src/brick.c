@@ -1,6 +1,6 @@
 #include "brick.h"
 
-Brick newBrick(int value, int width, int height, int i, int j){
+Brick newBrick(int value, int width, int height, int i, int j, char *textureFolder){
 	Brick b;
 
 	b.life    = value/10;
@@ -16,31 +16,31 @@ Brick newBrick(int value, int width, int height, int i, int j){
 	);
 
 	b.bonus = newBonus(value%10, b.center);
-	b.color = colorizeBrick(b.life);
+	b.texture = newTexture(textureFolder, texturizeBrick(b.life));
 
 	return b;
 }
 
-Color colorizeBrick(int type){
+char *texturizeBrick(int type){
 	switch(type){
 		case SIMPLE:
-			return newColor(255, 0, 0);
+			return  "simple.jpg";
 			break;
 		
 		case DOUBLE:
-			return newColor(0, 255, 0);
+			return  "double.jpg";
 			break;
 
 		case TRIPLE:
-			return newColor(0, 0, 255);
+			return "triple.jpg";
 			break;
 
 		case UNBREAKABLE:
-			return newColor(255, 255, 255);
+			return "unbreakable.jpg";
 			break;
 
 		default:
-			return newColor(255, 100, 255);
+			return "simple.jpg";
 			break;
 	}
 }
@@ -52,13 +52,18 @@ void drawBrick(Brick *brick){
 	float x = brick->center.x;
 	float y = brick->center.y;
 
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, brick->texture.memory);
+
 	glBegin(GL_QUADS);
-	glColor3ub(brick->color.r, brick->color.g, brick->color.b);
-		glVertex2f(x-w, y+h);
-		glVertex2f(x+w, y+h);
-		glVertex2f(x+w, y-h);
-		glVertex2f(x-w, y-h);
+		glTexCoord2f(0, 0); glVertex2f(x-w, y+h); 
+		glTexCoord2f(1, 0); glVertex2f(x+w, y+h); 
+		glTexCoord2f(1, 1); glVertex2f(x+w, y-h); 
+		glTexCoord2f(0, 1); glVertex2f(x-w, y-h);
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void changeBrickLife(Brick *brick){

@@ -31,7 +31,7 @@ void update(Game *game){
 
 		case BUILDING:
 			createPlayers(game);
-			if(buildLevel(&game->level) == EXIT_FAILURE){
+			if(buildLevel(&game->level, game->textureFolder) == EXIT_FAILURE){
 				printf("Erreur lors de la construction du niveau.\n");
 				return;
 			};
@@ -62,7 +62,7 @@ void createPlayers(Game *game){
 	for(i=0; i<game->nbPlayers; i++){
 		pos = (i%2 == 0) ? -1 : 1;
 		game->players[i] = newPlayer(
-			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "bar.jpg"), i),
+			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.jpg"), i),
 			newBar(newPoint(0, 360*pos), newTexture(game->textureFolder, "bar.jpg"), i),
 			createControl(i),
 			i
