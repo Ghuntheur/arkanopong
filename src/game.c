@@ -3,7 +3,7 @@
 Game newGame(){
 	Game g;
 	g.gameState = LOADING;
-	strcpy(g.textureFolder, "textures/1/");
+	g.nbPlayers = 0;
 	return g;
 }
 
@@ -17,16 +17,11 @@ void update(Game *game){
 			break;
 
 		case SELECTING:
-			/**
-			 * Menu : 
-			 * nb joueurs
-			 * niveau
-			 * textures
-			 * IA 
-			 */
-			strcpy(game->level.name, "level/first.txt");
-			game->gameState = BUILDING;
-			update(game);
+			if(buildMenu(&game->menu) == EXIT_FAILURE){
+				printf("Erreur lors de la construction du menu\n");
+				return;
+			}
+			playMenu(game);
 			break;
 
 		case BUILDING:
@@ -57,7 +52,6 @@ void createPlayers(Game *game){
 	int i, pos;
 
 	/*Allocation mémoires*/
-	game->nbPlayers = 2;
 	game->players = (Player*) malloc(game->nbPlayers*sizeof(Player));
 	if(game->players == NULL) return;
 
@@ -69,6 +63,39 @@ void createPlayers(Game *game){
 			createControl(i),
 			i
 		);
+	}
+}
+
+void playMenu(Game *game){
+	int loop = 1, key;
+	while(loop){
+		unsigned int startTime = SDL_GetTicks();
+
+		menuRender(&game->menu);
+
+		SDL_GL_SwapBuffers();
+
+		SDL_Event ev;
+		while(SDL_PollEvent(&ev)){
+
+			switch(ev.type){
+				case SDL_MOUSEBUTTONDOWN:
+					key = ev.button.button;
+					if(key == SDL_BUTTON_LEFT){
+						buttonCollide(game, ev.motion.x, ev.motion.y);
+					}
+					break;
+
+				case SDL_QUIT:
+					loop = 0;
+					break;
+			}
+		}
+
+		unsigned int elapsedTime = SDL_GetTicks() - startTime;
+    	if(elapsedTime < FRAMERATE_MILLISECONDS){
+      		SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
+    	}
 	}
 }
 
@@ -143,6 +170,40 @@ void collide(Game *game){
 		for(j=start; j<game->nbPlayers; j+=2){
 			barCollide(&game->players[i].ball, &game->players[j].bar);
 		}		
+	}
+}
+
+void buttonCollide(Game *game, int x, int y){
+	int i;
+	for(i=0; i<game->menu.nbButtons; i++){
+		if(checkButtonCollide(&game->menu.buttons[i], x, y) != -1){
+			applyAction(game, &game->menu.buttons[i]);
+		}
+	}
+}
+
+void applyAction(Game *game, Button *button){
+	switch(button->action){
+		case ADD_PLAYER:
+			game->nbPlayers++;
+			break;
+
+		case SUBSTRACT_PLAYER:
+			game->nbPlayers--;
+			break;
+
+		case LEVEL:
+			strcpy(game->level.name, button->levelName);
+			break;
+
+		case TEXTURE:
+			strcpy(game->textureFolder, button->textureFolder);
+			break;
+
+		case SUBMIT:
+			game->gameState = BUILDING;
+			update(game);
+			break;
 	}
 }
 

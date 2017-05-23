@@ -7,6 +7,7 @@
 #include "player.h"
 #include "level.h"
 #include "collide.h"
+#include "menu.h"
 #include "variables.h"
 
 typedef struct Game{
@@ -15,6 +16,7 @@ typedef struct Game{
 	int gameState;
 	char textureFolder[100];
 	Level level;
+	Menu menu;
 }Game;
 
 Game newGame();
@@ -27,7 +29,13 @@ void createPlayers(Game *game);
 
 void collide(Game *game);
 
+void buttonCollide(Game *game, int x, int y);
+
 void gameRender(Game *game);
+
+void playMenu(Game *game);
+
+void applyAction(Game *game, Button *button);
 
 void loseBall(Game *game);
 

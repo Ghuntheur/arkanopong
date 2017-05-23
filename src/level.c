@@ -54,3 +54,4 @@ void levelRender(Level *level){
 		bonusRender(&level->bricks[i].bonus, level->bricks[i].broken);
 	}
 }
+

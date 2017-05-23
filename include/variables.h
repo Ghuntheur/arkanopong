@@ -59,5 +59,14 @@ typedef enum bonusState{
 	BONUS_CAUGHT
 }bonusState;
 
+typedef enum buttonType{
+	SUBSTRACT_PLAYER,
+	ADD_PLAYER,
+	PRINT_PLAYER,
+	VS_AI,
+	SUBMIT,
+	LEVEL,
+	TEXTURE,
+}buttonType;
 
 #endif
