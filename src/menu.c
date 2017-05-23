@@ -17,7 +17,6 @@ void getButtonsNumber(Menu *menu, DIR *level, DIR *texture){
 	menu->level = countFile(level);
 	menu->texture = countRepo(texture);
 	menu->nbButtons = menu->base + menu->texture + menu->level;
-	printf("Nombre de boutons = %d\n", menu->nbButtons);
 }
 
 int countRepo(DIR *texture){
@@ -28,7 +27,6 @@ int countRepo(DIR *texture){
 		if(strchr(ent->d_name, '.') == NULL)
 			count++;
 	}
-	printf("repo dans texture = %d\n", count);
 	return count;
 }
 
@@ -40,7 +38,6 @@ int countFile(DIR *level){
 		if(strcmp(ent->d_name, ".") != 0 && strcmp(ent->d_name, "..") != 0)
 			count++;
 	}
-	printf("fichier dans level = %d\n", count);
 	return count;
 }
 
@@ -55,9 +52,9 @@ int createButtons(Menu *menu){
 	int i;
 	for(i=0; i<menu->nbButtons; i++){
 		if(i >= LEVEL && i < LEVEL+menu->level){
-			menu->buttons[i] = newButtonLevelTexture(LEVEL, menu->level, menu->base-i+1);
+			menu->buttons[i] = newButtonLevelTexture(LEVEL, menu->level, menu->base+menu->level-i-1);
 		}else if(i >= TEXTURE && i <= TEXTURE+menu->texture){
-			menu->buttons[i] = newButtonLevelTexture(TEXTURE, menu->texture, menu->base+menu->level-i+1);
+			menu->buttons[i] = newButtonLevelTexture(TEXTURE, menu->texture, menu->base+menu->level+menu->texture-i-1);
 		}else{
 			menu->buttons[i] = newButton(i);
 		}		

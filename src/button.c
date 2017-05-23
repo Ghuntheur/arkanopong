@@ -48,12 +48,19 @@ Button newButtonLevelTexture(int type, int length, int i){
 	Button b;
 	char *textureFolder = "menu/";
 
+	char string[1];
+	sprintf(string, "%d", i+1);
+
 	switch(type){
 		case LEVEL:
 			b.width  = WINDOW_WIDTH/length;
 			b.height = 100;
 			b.center = newPoint(-WINDOW_WIDTH/2 + b.width*(i+0.5), 0);
-			strcpy(b.levelName, "level/first.txt");
+
+			strcpy(b.levelName, "level/");
+			strcat(b.levelName, string);
+			strcat(b.levelName, ".txt");
+
 			b.texture = newTexture(textureFolder, "ai.jpg");
 			break;
 
@@ -61,7 +68,11 @@ Button newButtonLevelTexture(int type, int length, int i){
 			b.width  = WINDOW_WIDTH/length;
 			b.height = 100;
 			b.center = newPoint(-WINDOW_WIDTH/2 + b.width*(i+0.5), -150);
-			strcpy(b.textureFolder, "textures/1/");
+
+			strcpy(b.textureFolder, "textures/");
+			strcat(b.textureFolder, string);
+			strcat(b.textureFolder, "/");
+
 			b.texture = newTexture(textureFolder, "player.jpg");
 			break;
 	}
@@ -88,6 +99,14 @@ void drawButton(Button *button){
 
 	glDisable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void changeButtontexture(Button *button, int nbPlayers){
+	char string[1];
+	sprintf(string, "%d", nbPlayers);
+
+	printf("nbPlayers = %d\n", nbPlayers);
+	button->texture = newTexture("menu/", strcat(string, ".png"));
 }
 
 int checkButtonCollide(Button *button, int x, int y){

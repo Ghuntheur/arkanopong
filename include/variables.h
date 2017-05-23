@@ -9,6 +9,8 @@ extern const unsigned int FRAMERATE_MILLISECONDS;
 
 extern const unsigned int BONUS_DURATION;
 
+extern const int MAX_PLAYERS;
+
 typedef enum gameState{
 	LOADING,
 	SELECTING,

@@ -3,7 +3,7 @@
 Game newGame(){
 	Game g;
 	g.gameState = LOADING;
-	g.nbPlayers = 0;
+	g.nbPlayers = 1;
 	return g;
 }
 
@@ -174,10 +174,13 @@ void collide(Game *game){
 }
 
 void buttonCollide(Game *game, int x, int y){
-	int i;
+	int i, action;
 	for(i=0; i<game->menu.nbButtons; i++){
-		if(checkButtonCollide(&game->menu.buttons[i], x, y) != -1){
+		if((action = checkButtonCollide(&game->menu.buttons[i], x, y)) != -1){
 			applyAction(game, &game->menu.buttons[i]);
+			if(action == SUBSTRACT_PLAYER || action == ADD_PLAYER){
+				changeButtontexture(&game->menu.buttons[PRINT_PLAYER], game->nbPlayers);
+			}
 		}
 	}
 }
@@ -185,11 +188,13 @@ void buttonCollide(Game *game, int x, int y){
 void applyAction(Game *game, Button *button){
 	switch(button->action){
 		case ADD_PLAYER:
-			game->nbPlayers++;
+			if(game->nbPlayers+1 < MAX_PLAYERS)
+				game->nbPlayers++;			
 			break;
 
 		case SUBSTRACT_PLAYER:
-			game->nbPlayers--;
+			if(game->nbPlayers > 1)
+				game->nbPlayers--;
 			break;
 
 		case LEVEL:

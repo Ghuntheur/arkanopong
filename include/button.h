@@ -23,6 +23,10 @@ void transformXY(int *x, int *y);
 
 void drawButton(Button *button);
 
+void changeButtontexture(Button *button, int nbPlayers);
+
 int checkButtonCollide(Button *button, int x, int y);
+
+char *intToString(int i);
 
 #endif
