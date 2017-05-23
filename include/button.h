@@ -9,6 +9,7 @@ typedef struct Button{
 	Point center;
 	float width;
 	float height;
+	float margin;
 	int action;
 	char levelName[100];
 	char textureFolder[100];
@@ -26,7 +27,5 @@ void drawButton(Button *button);
 void changeButtontexture(Button *button, int nbPlayers);
 
 int checkButtonCollide(Button *button, int x, int y);
-
-char *intToString(int i);
 
 #endif

@@ -58,8 +58,8 @@ void createPlayers(Game *game){
 	for(i=0; i<game->nbPlayers; i++){
 		pos = (i%2 == 0) ? -1 : 1;
 		game->players[i] = newPlayer(
-			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.jpg"), i),
-			newBar(newPoint(0, 360*pos), newTexture(game->textureFolder, "bar.jpg"), i),
+			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.png"), i),
+			newBar(newPoint(0, 360*pos), newTexture(game->textureFolder, "bar.png"), i),
 			createControl(i),
 			i
 		);
@@ -234,7 +234,7 @@ void loseBall(Game *game){
 				changePlayerLife(&game->players[i], LOOSE_LIFE);
 				printf("%d lifes left for player %d\n", game->players[i].life, game->players[i].id);
 				pos = (i%2 == 0) ? -1 : 1;
-				game->players[i].ball = newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.jpg"), i);
+				game->players[i].ball = newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.png"), i);
 			}
 			else{
 				printf("This is the end, player n%d\n", game->players[i].id);

@@ -18,10 +18,10 @@ Bonus newBonus(int value, Point center, char *textureFolder){
 }
 
 char *texturizeBonus(int type){
-	if(type > BONUS_EMPTY+1 && type < STICKY_BAR+1) return "bonus.jpg";
-	else if(type > STICKY_BAR && type < numberOfBonus) return "malus.jpg";
+	if(type > BONUS_EMPTY+1 && type < STICKY_BAR+1) return "bonus.png";
+	else if(type > STICKY_BAR && type < numberOfBonus) return "malus.png";
 
-	return "bonus.jpg";
+	return "bonus.png";
 }
 
 void bonusRun(Bonus *bonus){
@@ -36,6 +36,8 @@ void bonusDraw(Bonus *bonus){
 	float y = bonus->center.y;
 
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBindTexture(GL_TEXTURE_2D, bonus->texture.memory);
 
 	glBegin(GL_QUADS);
@@ -46,6 +48,7 @@ void bonusDraw(Bonus *bonus){
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
 	glBindTexture(GL_TEXTURE_2D, 0);	
 }
 

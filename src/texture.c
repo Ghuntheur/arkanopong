@@ -29,7 +29,7 @@ void loadTexture(Texture *texture){
 	glTexImage2D(
 		GL_TEXTURE_2D, 
 		0, 
-		GL_RGB, 
+		GL_RGBA, 
 		texture->img->w, 
 		texture->img->h, 
 		0, 

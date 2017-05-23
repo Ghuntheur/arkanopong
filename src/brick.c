@@ -24,23 +24,23 @@ Brick newBrick(int value, int width, int height, int i, int j, char *textureFold
 char *texturizeBrick(int type){
 	switch(type){
 		case SIMPLE:
-			return  "simple.jpg";
+			return  "simple.png";
 			break;
 		
 		case DOUBLE:
-			return  "double.jpg";
+			return  "double.png";
 			break;
 
 		case TRIPLE:
-			return "triple.jpg";
+			return "triple.png";
 			break;
 
 		case UNBREAKABLE:
-			return "unbreakable.jpg";
+			return "unbreakable.png";
 			break;
 
 		default:
-			return "simple.jpg";
+			return "simple.png";
 			break;
 	}
 }
@@ -53,6 +53,8 @@ void drawBrick(Brick *brick){
 	float y = brick->center.y;
 
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBindTexture(GL_TEXTURE_2D, brick->texture.memory);
 
 	glBegin(GL_QUADS);
@@ -63,6 +65,7 @@ void drawBrick(Brick *brick){
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 

@@ -41,6 +41,7 @@ Button newButton(int type){
 			break;
 	}
 	b.action = type;
+	b.margin = 0;
 	return b;
 }
 
@@ -73,16 +74,19 @@ Button newButtonLevelTexture(int type, int length, int i){
 			strcat(b.textureFolder, string);
 			strcat(b.textureFolder, "/");
 
-			b.texture = newTexture(textureFolder, "player.jpg");
+			b.texture = newTexture(b.textureFolder, "btn.png");
 			break;
 	}
 	b.action = type;
+	b.margin = 20;
 	return b;
 }
 
 void drawButton(Button *button){
 	float w = button->width/2;
 	float h = button->height/2;
+
+	float margin = button->margin;
 
 	float x = button->center.x;
 	float y = button->center.y;
@@ -91,10 +95,10 @@ void drawButton(Button *button){
 	glBindTexture(GL_TEXTURE_2D, button->texture.memory);
 
 	glBegin(GL_QUADS);
-		glTexCoord2f(0, 0); glVertex2f(x-w, y+h); 
-		glTexCoord2f(1, 0); glVertex2f(x+w, y+h); 
-		glTexCoord2f(1, 1); glVertex2f(x+w, y-h); 
-		glTexCoord2f(0, 1); glVertex2f(x-w, y-h);
+		glTexCoord2f(0, 0); glVertex2f(x-w+margin, y+h); 
+		glTexCoord2f(1, 0); glVertex2f(x+w-margin, y+h); 
+		glTexCoord2f(1, 1); glVertex2f(x+w-margin, y-h); 
+		glTexCoord2f(0, 1); glVertex2f(x-w+margin, y-h);
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);
