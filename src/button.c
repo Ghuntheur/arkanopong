@@ -23,7 +23,7 @@ Button newButton(int type){
 			b.center  = newPoint(0, 300);
 			b.width   = 400;
 			b.height  = 100;
-			b.texture = newTexture(textureFolder, "player.jpg");
+			b.texture = newTexture(textureFolder, "2.png");
 			break;
 
 		case VS_AI:

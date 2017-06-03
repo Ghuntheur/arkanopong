@@ -3,7 +3,7 @@
 Game newGame(){
 	Game g;
 	g.gameState = LOADING;
-	g.nbPlayers = 1;
+	g.nbPlayers = 2;
 	return g;
 }
 
@@ -188,13 +188,13 @@ void buttonCollide(Game *game, int x, int y){
 void applyAction(Game *game, Button *button){
 	switch(button->action){
 		case ADD_PLAYER:
-			if(game->nbPlayers+1 < MAX_PLAYERS)
-				game->nbPlayers++;			
+			if(game->nbPlayers+1 <= MAX_PLAYERS)
+				game->nbPlayers += 2;			
 			break;
 
 		case SUBSTRACT_PLAYER:
-			if(game->nbPlayers > 1)
-				game->nbPlayers--;
+			if(game->nbPlayers > 2)
+				game->nbPlayers -= 2;
 			break;
 
 		case LEVEL:
