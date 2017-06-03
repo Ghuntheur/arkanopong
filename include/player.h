@@ -17,16 +17,19 @@ typedef struct Player{
 
 	Ball ball;
 	Bar bar;
-	Control control;	
+	Control control;
+	Texture textureLife;
 	
 }Player;
 
-Player newPlayer(Ball ball, Bar bar, Control control, int id);
+Player newPlayer(Ball ball, Bar bar, Control control, Texture textureLife, int id);
 
 int checkPlayerHasActiveBonus(Player *player);
 
 void changePlayerBonusParam(Player *player, int bonus, int state);
 
 void changePlayerLife(Player *player, int type);
+
+void lifeRender(Player *player, Bar *bar);
 
 #endif

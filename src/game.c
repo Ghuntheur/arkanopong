@@ -61,6 +61,7 @@ void createPlayers(Game *game){
 			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.png"), i),
 			newBar(newPoint(0, 360*pos), newTexture(game->textureFolder, "bar.png"), i),
 			createControl(i),
+			newTexture(game->textureFolder, "life.png"),
 			i
 		);
 	}
@@ -222,6 +223,7 @@ void gameRender(Game *game){
 	for(i=0; i<game->nbPlayers; i++){
         ballRender(&game->players[i].ball, game->players[i].bar.center.x, game->players[i].bar.width);
         barRender(&game->players[i].bar);
+        lifeRender(&game->players[i], &game->players[i].bar);
         checkDisableBonus(&game->players[i]);
     }
 }

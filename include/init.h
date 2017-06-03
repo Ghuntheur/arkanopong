@@ -16,4 +16,5 @@ void setVideoMode();
 
 int initSDL();
 
+
 #endif
