@@ -19,9 +19,9 @@ Box newBoxFromBar(Bar *bar);
 
 Box newBoxFromBonus(Bonus *bonus);
 
-void barCollide(Ball *ball, Bar *bar);
+void barCollide(Ball *ball, Bar *bar, int bonusType);
 
-int checkBarCollide(Ball *ball, Bar *bar, float *ratio);
+int checkBarCollide(Ball *ball, Bar *bar);
 
 int checkBrickCollide(Ball *ball, Brick *brick);
 

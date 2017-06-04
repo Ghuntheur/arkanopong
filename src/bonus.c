@@ -18,8 +18,8 @@ Bonus newBonus(int value, Point center, char *textureFolder){
 }
 
 char *texturizeBonus(int type){
-	if(type > BONUS_EMPTY+1 && type < STICKY_BAR+1) return "bonus.png";
-	else if(type > STICKY_BAR && type < numberOfBonus) return "malus.png";
+	if(type > BONUS_EMPTY+1 && type < INVINCIBLE+1) return "bonus.png";
+	else if(type > INVINCIBLE && type < numberOfBonus) return "malus.png";
 
 	return "bonus.png";
 }
@@ -55,7 +55,7 @@ void bonusDraw(Bonus *bonus){
 void changeBonusSpeed(Bonus *bonus, int type){
 	switch(type){
 		case SPEED_START:
-			bonus->speed.y = bonus->direction;
+			bonus->speed.y = 3*bonus->direction;
 			break;
 
 		default:
@@ -107,15 +107,19 @@ void applyBonus(Player *player, int bonus){
 		case BAR_CLOSER:
 			changeBarDistance(&player->bar, BAR_CLOSER);
 			break;
-		case WIN_LIFE:
-			changePlayerLife(player, WIN_LIFE);
-			break;
 
 		case BALL_SPEED_UP:
 			changeBallSpeed(&player->ball, SPEED_UP);
 			break;
 		case BALL_SPEED_DOWN:
 			changeBallSpeed(&player->ball, SPEED_DOWN);
+			break;
+		case BALL_SIZE_UP:
+			changeBallSize(&player->ball, BALL_SIZE_UP);
+			break;
+
+		case WIN_LIFE:
+			changePlayerLife(player, WIN_LIFE);
 			break;
 		case LOOSE_LIFE:
 			changePlayerLife(player, LOOSE_LIFE);
@@ -153,6 +157,9 @@ void disableBonus(Player *player){
 			break;
 		case BALL_SPEED_DOWN:
 			changeBallSpeed(&player->ball, SPEED_UP);
+			break;
+		case BALL_SIZE_UP:
+			changeBallSize(&player->ball, BALL_SIZE_DOWN);
 			break;
 	}
 	changePlayerBonusParam(player, player->bonusType, BONUS_DROPPED);

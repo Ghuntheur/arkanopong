@@ -3,7 +3,13 @@
 Game newGame(){
 	Game g;
 	g.gameState = LOADING;
+	/**
+	 * PAR DEFAUT 
+	 */
 	g.nbPlayers = 2;
+	strcpy(g.level.name, "level/1.txt");
+	strcpy(g.textureFolder, "textures/1/");
+	
 	return g;
 }
 
@@ -172,7 +178,7 @@ void collide(Game *game){
 		start = (game->players[i].ball.center.y > 0) ? 1 :0;
 		for(j=start; j<game->nbPlayers; j+=2){
 			if(isAlive(&game->players[j]) == EXIT_SUCCESS){
-				barCollide(&game->players[i].ball, &game->players[j].bar);
+				barCollide(&game->players[i].ball, &game->players[j].bar, game->players[j].bonusType);
 			}
 		}		
 	}
@@ -185,6 +191,15 @@ void buttonCollide(Game *game, int x, int y){
 			applyAction(game, &game->menu.buttons[i]);
 			if(action == SUBSTRACT_PLAYER || action == ADD_PLAYER){
 				changeButtontexture(&game->menu.buttons[PRINT_PLAYER], game->nbPlayers);
+			}
+			if(action == LEVEL){
+				resetSelectedButton(&game->menu, LEVEL);
+				selectedButton(&game->menu.buttons[i]);
+			
+			}
+			if(action == TEXTURE){
+				resetSelectedButton(&game->menu, TEXTURE);
+				selectedButton(&game->menu.buttons[i]);
 			}
 		}
 	}
@@ -242,6 +257,14 @@ void checkBallLost(Game *game){
 		 */
 		if(game->players[i].ball.lost == 1){
 			/*
+			 * Si bonus invincible activé 
+			 */
+			if(game->players[i].bonusType == INVINCIBLE){
+				reloadBall(&game->players[i].ball, game->players[i].bar.center.x, game->players[i].bar.center.y);
+				return;
+			}
+
+			/*
 			 * si perdue dans son camp
 			 */
 			if(checkOwnBallLost(game->players[i].id, game->players[i].ball.center.y) == EXIT_SUCCESS){
@@ -291,9 +314,9 @@ int checkEndGame(Game *game){
 
 void winner(Game *game){
 	if(game->players[0].totalLife < 0){
-		game->winner = newTexture("textures/", "haut.jpg");
-	}else{
-		game->winner = newTexture("textures/", "bas.jpg");
+		game->winner = newTexture("textures/", "haut.png");
+	}else if(game->players[1].totalLife < 0){
+		game->winner = newTexture("textures/", "bas.png");
 	}
 
 	winnerDraw(game);

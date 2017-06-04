@@ -25,6 +25,8 @@ int allocButtonsMemory(Menu *menu);
 
 int createButtons(Menu *menu);
 
+void resetSelectedButton(Menu *menu, int type);
+
 void menuRender(Menu *menu);
 
 #endif

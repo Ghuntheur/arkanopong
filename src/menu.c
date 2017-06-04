@@ -53,13 +53,22 @@ int createButtons(Menu *menu){
 	for(i=0; i<menu->nbButtons; i++){
 		if(i >= LEVEL && i < LEVEL+menu->level){
 			menu->buttons[i] = newButtonLevelTexture(LEVEL, menu->level, menu->base+menu->level-i-1);
-		}else if(i >= TEXTURE && i <= TEXTURE+menu->texture){
+		}else if(i >= TEXTURE && i <= TEXTURE+menu->texture+1){
 			menu->buttons[i] = newButtonLevelTexture(TEXTURE, menu->texture, menu->base+menu->level+menu->texture-i-1);
 		}else{
 			menu->buttons[i] = newButton(i);
 		}		
 	}
 	return EXIT_SUCCESS;
+}
+
+void resetSelectedButton(Menu *menu, int type){
+	int i;
+	for(i=0; i<menu->nbButtons; i++){
+		if(menu->buttons[i].action == type){
+			menu->buttons[i].buttonSelected = 0;
+		}
+	}
 }
 
 void menuRender(Menu *menu){
@@ -69,5 +78,6 @@ void menuRender(Menu *menu){
 
 	for(i=0; i<menu->nbButtons; i++){
 		drawButton(&menu->buttons[i]);
+		drawSelected(&menu->buttons[i]);
 	}	
 }

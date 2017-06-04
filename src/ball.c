@@ -73,6 +73,21 @@ void changeBallSpeed(Ball *ball, int type){
 	}
 }
 
+void changeBallSize(Ball *ball, int type){
+	switch(type){
+		case BALL_SIZE_UP:
+			ball->radius *= 2;
+			break;
+
+		case BALL_SIZE_DOWN:
+			ball->radius /= 2;
+			break;
+
+		default:
+			break;
+	}
+}
+
 void ballRun(Ball *ball, float xBar, float wBar){
 	/**
 	 * Rebond contre les parois gauche /droite

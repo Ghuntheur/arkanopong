@@ -40,20 +40,16 @@ Box newBoxFromBonus(Bonus *bonus){
 	return b;
 }
 
-void barCollide(Ball *ball, Bar *bar){
-	float ratio;
-	if(checkBarCollide(ball, bar, &ratio) == EXIT_SUCCESS){
-		float indiceAngle = (ball->center.x - bar->center.x) / (bar->width / 2);
-		printf("indiceAngle : %f\n", indiceAngle);
-		ball->speed.x += indiceAngle;
-		/*ball->speed.y += sqrt(fabs(ball->vitesse * ball->vitesse - ball->speed.x * ball->speed.x)) * -1;
-		ball->dirY *= -1;*/
+void barCollide(Ball *ball, Bar *bar, int bonusType){
+	if(checkBarCollide(ball, bar) == EXIT_SUCCESS){
+		float angle = (ball->center.x - bar->center.x) / (bar->width / 2);
+		ball->speed.x += angle;
 		ball->speed.y *= -1;
 	}
 }
 
 
-int checkBarCollide(Ball *ball, Bar *bar, float *ratio){
+int checkBarCollide(Ball *ball, Bar *bar){
 	Box boxBall = newBoxFromBall(ball);
 	Box box     = newBoxFromBar(bar);
 	/**

@@ -31,6 +31,8 @@ void ballRun(Ball *ball, float xBar, float wBar);
 
 void changeBallSpeed(Ball *ball, int type);
 
+void changeBallSize(Ball *ball, int type);
+
 void reloadBall(Ball *ball, float xBar, float yBar);
 
 void ballRender(Ball *ball, float xBar, float wBar);

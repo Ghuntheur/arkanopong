@@ -1,18 +1,3 @@
-Notes :
-0 => vide
-1 => brique basique (1 coup)
-2 => brique solide (3 coups)
-3 => brique incassable
-4 => brique bonus 1 : augmenter taille barre
-5 => brique bonus 2 : ralenti balle
-6 => brique bonus 3 : diminue barre adversaire
-7 => brique bonus 4 : rajoute vie
-8 => brique malus 1 : diminue taille barre
-9 => brique malus 2 : accelere balle
-10=> brique malus 3 : perd vie
-
-En pratique 
-
 	Pour les briques :
 		- 0 : pas de brique, un vide
 		- 1 : brique simple, se casse en un coup
@@ -26,9 +11,9 @@ En pratique
 done	- 0 : pas de bonus
 done	- 1 : barre augmente de taille
 done	- 2 : balle ralentie
-done	- 3 : rajouter un point de vie
-		- 4 : sticky barre
-		- 5 : invincible
+done	- 3 : balle augmente de taille
+done	- 4 : rajouter un point de vie
+done	- 5 : invincible
 		MALUS
 done	- 6 : barre diminue de taille
 done	- 7 : balle va plus vite

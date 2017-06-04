@@ -11,9 +11,14 @@ typedef struct Button{
 	float height;
 	float margin;
 	int action;
+	int buttonSelected;
 	char levelName[100];
 	char textureFolder[100];
+	char textureLevel[100];
+
 	Texture texture;
+	Texture selected;
+	
 }Button;
 
 Button newButton(int type);
@@ -24,7 +29,11 @@ void transformXY(int *x, int *y);
 
 void drawButton(Button *button);
 
+void drawSelected(Button *button);
+
 void changeButtontexture(Button *button, int nbPlayers);
+
+void selectedButton(Button *button);
 
 int checkButtonCollide(Button *button, int x, int y);
 

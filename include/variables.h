@@ -41,18 +41,22 @@ typedef enum controlType{
 }controlType;
 
 typedef enum bonusType{
-	BONUS_EMPTY,	
-	BAR_BIGGER,          
-	BALL_SPEED_DOWN,
-	WIN_LIFE,
-	INVINCIBLE,
-	STICKY_BAR,
+	BONUS_EMPTY,  		/*0*/	
 
-	BAR_SMALLER,
-	BALL_SPEED_UP,
-	LOOSE_LIFE,
-	BAR_CLOSER,
-	BAR_FURTHER,
+	BAR_BIGGER,         /*1*/
+	BALL_SPEED_DOWN, 	/*2*/
+	BALL_SIZE_UP,		/*3*/
+	WIN_LIFE,			/*4*/
+	INVINCIBLE,			/*5*/
+
+	BAR_SMALLER,		/*6*/
+	BALL_SPEED_UP,		/*7*/
+	LOOSE_LIFE,			/*8*/
+	BAR_CLOSER,			/*9*/
+
+	BAR_FURTHER,		/* enlever bonus */
+	BALL_SIZE_DOWN,		/* enlever bonus */
+
 	numberOfBonus
 }bonusType;
 
@@ -70,5 +74,6 @@ typedef enum buttonType{
 	LEVEL,
 	TEXTURE,
 }buttonType;
+
 
 #endif
