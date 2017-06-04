@@ -13,8 +13,6 @@ Ball newBall(Point center, Vector speed, Texture texture, int id){
 
 	b.center = center;
 	b.speed  = speed;
-	b.vitesse = 0;
-	b.dirY = 1;
 	b.radius = 10;
 	b.texture = texture;
 
@@ -50,20 +48,24 @@ void changeBallSpeed(Ball *ball, int type){
 		case SPEED_START:
 			if(ball->thrown == 0){
 				dir = (ball->id%2 == 0) ? 1 : -1;
-				ball->vitesse = 2;
-				ball->dirY = dir;
+				ball->speed.y = 5*dir;
 				ball->thrown  = 1;
 			}			
 			break;
 
 		case SPEED_UP:
 			ball->speed.x *= 3;
-			/*ball->speed.y *= 3;*/
+			ball->speed.y *= 3;
 			break;
 
 		case SPEED_DOWN:
 			ball->speed.x /= 3;
-			/*ball->speed.y /= 3;*/
+			ball->speed.y /= 3;
+			break;
+
+		case SPEED_STOP:
+			ball->speed.x = 0;
+			ball->speed.y = 0;
 			break;
 
 		default:
@@ -72,37 +74,51 @@ void changeBallSpeed(Ball *ball, int type){
 }
 
 void ballRun(Ball *ball, float xBar, float wBar){
+	/**
+	 * Rebond contre les parois gauche /droite
+	 */
 	if(ball->center.x - ball->radius <= -WINDOW_WIDTH/2 || ball->center.x + ball->radius > WINDOW_WIDTH/2){
 		ball->speed.x *= -1;
-		
-	}
-	if(ball->center.y + ball->radius <= -WINDOW_HEIGHT/2 || ball->center.y - ball->radius > WINDOW_HEIGHT/2){
-		/*ball->speed.y *= -1;*/
-		ballLost(ball);
 	}
 
+	/**
+	 * Perte d'une balle
+	 */
+	if(ball->center.y + ball->radius <= -WINDOW_HEIGHT/2 || ball->center.y - ball->radius > WINDOW_HEIGHT/2){
+		ball->lost = 1;
+	}
+
+	/**
+	 * Tant que la balle est pas lancée, elle suit en X la barre
+	 */
 	if(ball->thrown == 0){
 		ball->center.x = xBar;
 	}
 
+	/**
+	 * Updtae de la position de la ball
+	 */
 	ball->center.x += ball->speed.x;
-	if(ball->speed.x == 0){
+	ball->center.y += ball->speed.y;
+	/*if(ball->speed.x == 0){
 		ball->center.y += ball->vitesse * ball->dirY; 
-		/*printf("dirY      : %d\n", ball->dirY);*/
+	
 	}
 	else{
-		/*printf("dirY : %d\n", ball->dirY);*/
 		ball->center.y += sqrt(fabs((ball->vitesse * ball->vitesse) - (ball->speed.x * ball->speed.x))) * ball->dirY;
-		/*printf("reslt = %f\n", ball->center.y);*/
+	}*/
+}
 
-	}
+void reloadBall(Ball *ball, float xBar, float yBar){
+	int pos = (ball->id%2 == 0) ? -1 : 1;
+	ball->center = newPoint(xBar, yBar - 20*pos);
+	ball->lost = 0;
+	ball->thrown = 0;
+
+	changeBallSpeed(ball, SPEED_STOP);
 }
 
 void ballRender(Ball *ball, float xBar, float wBar){
 	ballRun(ball, xBar, wBar);
 	ballDraw(ball);
-}
-
-void ballLost(Ball *ball){
-	ball->lost = 1;
 }

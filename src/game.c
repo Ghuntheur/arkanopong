@@ -39,8 +39,7 @@ void update(Game *game){
 			break;
 
 		case OVER:
-			printf("Game Over\n");
-			/*Appel du menu*/
+			winner(game);
 			break;
 
 		default:
@@ -57,13 +56,16 @@ void createPlayers(Game *game){
 
 	for(i=0; i<game->nbPlayers; i++){
 		pos = (i%2 == 0) ? -1 : 1;
+		Point point = placePlayer(game->nbPlayers, i);
 		game->players[i] = newPlayer(
-			newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.png"), i),
-			newBar(newPoint(0, 360*pos), newTexture(game->textureFolder, "bar.png"), i),
+			newBall(newPoint(point.x, point.y-20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.png"), i),
+			newBar(point, newTexture(game->textureFolder, "bar.png"), i),
 			createControl(i),
 			newTexture(game->textureFolder, "life.png"),
 			i
 		);
+		game->players[0].totalLife = game->nbPlayers/2 * game->players[0].life;
+		game->players[1].totalLife = game->nbPlayers/2 * game->players[1].life;
 	}
 }
 
@@ -108,7 +110,7 @@ void play(Game *game){
 
     	gameRender(game);
         collide(game);
-        loseBall(game);
+        checkBallLost(game);
 
   		SDL_GL_SwapBuffers();
 
@@ -169,7 +171,9 @@ void collide(Game *game){
 		
 		start = (game->players[i].ball.center.y > 0) ? 1 :0;
 		for(j=start; j<game->nbPlayers; j+=2){
-			barCollide(&game->players[i].ball, &game->players[j].bar);
+			if(isAlive(&game->players[j]) == EXIT_SUCCESS){
+				barCollide(&game->players[i].ball, &game->players[j].bar);
+			}
 		}		
 	}
 }
@@ -221,28 +225,95 @@ void gameRender(Game *game){
 	levelRender(&game->level);
 
 	for(i=0; i<game->nbPlayers; i++){
-        ballRender(&game->players[i].ball, game->players[i].bar.center.x, game->players[i].bar.width);
-        barRender(&game->players[i].bar);
-        lifeRender(&game->players[i], &game->players[i].bar);
-        checkDisableBonus(&game->players[i]);
+		if(isAlive(&game->players[i]) == EXIT_SUCCESS){
+	        ballRender(&game->players[i].ball, game->players[i].bar.center.x, game->players[i].bar.width);
+	        barRender(&game->players[i].bar);
+	        lifeRender(&game->players[i], &game->players[i].bar);
+	        checkDisableBonus(&game->players[i]);
+	    }
     }
 }
 
-void loseBall(Game *game){
-	int i, pos;
+void checkBallLost(Game *game){
+	int i, indice;
 	for(i=0; i<game->nbPlayers; i++){
+		/*
+		 * Si la balle est perdue
+		 */
 		if(game->players[i].ball.lost == 1){
-			if(game->players[i].life > 1){
+			/*
+			 * si perdue dans son camp
+			 */
+			if(checkOwnBallLost(game->players[i].id, game->players[i].ball.center.y) == EXIT_SUCCESS){
 				changePlayerLife(&game->players[i], LOOSE_LIFE);
-				printf("%d lifes left for player %d\n", game->players[i].life, game->players[i].id);
-				pos = (i%2 == 0) ? -1 : 1;
-				game->players[i].ball = newBall(newPoint(0, 360*pos - 20*pos), newVector(0, 0), newTexture(game->textureFolder, "ball.png"), i);
+				changePlayerTotalLife(&game->players[i%2], LOOSE_LIFE);
+			/*
+			 * joueur fais perdre un point de vie à l'adversaire
+			 */
+			}else{
+				indice = nearestBar(game, &game->players[i].ball);
+				changePlayerLife(&game->players[indice], LOOSE_LIFE);
+				changePlayerTotalLife(&game->players[(i%2 == 0) ? 1 : 0], LOOSE_LIFE);
 			}
-			else{
-				printf("This is the end, player n%d\n", game->players[i].id);
+			/*
+			 * Fin de partie ?
+			 */
+			if(checkEndGame(game) == EXIT_SUCCESS){
 				game->gameState = OVER;
 				update(game);
+				return;
 			}
+
+			/*
+			 * Remise de la balle en jeu
+			 */
+			reloadBall(&game->players[i].ball, game->players[i].bar.center.x, game->players[i].bar.center.y);
 		}
 	}
+}
+
+int nearestBar(Game *game, Ball *ball){
+	int i;
+	int start = (ball->id%2 == 0) ? 1 : 0;
+	int indice = start;
+
+	for(i=start; i<game->nbPlayers; i+=2){
+		if(fabs(game->players[i].bar.center.x - ball->center.x) < fabs(game->players[indice].bar.center.x - ball->center.x)){
+			indice = game->players[i].id;
+		}
+	}
+	return indice;
+}
+
+int checkEndGame(Game *game){
+	return (game->players[0].totalLife <= 0 || game->players[1].totalLife <= 0) ? EXIT_SUCCESS : EXIT_FAILURE;
+}
+
+void winner(Game *game){
+	if(game->players[0].totalLife < 0){
+		game->winner = newTexture("textures/", "haut.jpg");
+	}else{
+		game->winner = newTexture("textures/", "bas.jpg");
+	}
+
+	winnerDraw(game);
+}
+
+void winnerDraw(Game *game){
+	float x = WINDOW_WIDTH/2;
+	float y = WINDOW_HEIGHT/2;
+
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glBindTexture(GL_TEXTURE_2D, game->winner.memory);
+
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 0); glVertex2f(-x,  y);
+		glTexCoord2f(1, 0); glVertex2f( x,  y);
+		glTexCoord2f(1, 1); glVertex2f( x, -y);
+		glTexCoord2f(0, 1); glVertex2f(-x, -y);
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

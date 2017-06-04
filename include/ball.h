@@ -15,8 +15,6 @@ typedef struct Ball{
 
 	Point center;
 	Vector speed;
-	float vitesse;
-	int dirY;
 	float radius;
 	int thrown;
 	int lost;
@@ -33,8 +31,8 @@ void ballRun(Ball *ball, float xBar, float wBar);
 
 void changeBallSpeed(Ball *ball, int type);
 
-void ballRender(Ball *ball, float xBar, float wBar);
+void reloadBall(Ball *ball, float xBar, float yBar);
 
-void ballLost(Ball *ball);
+void ballRender(Ball *ball, float xBar, float wBar);
 
 #endif

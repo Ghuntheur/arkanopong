@@ -9,6 +9,7 @@
 typedef struct Player{
 	int id;
 	int life;
+	int totalLife;
 	int bonusActive;
 	int bonusType;
 
@@ -30,6 +31,16 @@ void changePlayerBonusParam(Player *player, int bonus, int state);
 
 void changePlayerLife(Player *player, int type);
 
+void changePlayerTotalLife(Player *player, int type);
+
 void lifeRender(Player *player, Bar *bar);
+
+Point placePlayer(int nbPlayers, int i);
+
+int isAlive(Player *player);
+
+int checkOwnBallLost(int playerId, float yBall);
+
+
 
 #endif

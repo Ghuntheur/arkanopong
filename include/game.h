@@ -17,6 +17,8 @@ typedef struct Game{
 	char textureFolder[100];
 	Level level;
 	Menu menu;
+
+	Texture winner;
 }Game;
 
 Game newGame();
@@ -37,6 +39,14 @@ void playMenu(Game *game);
 
 void applyAction(Game *game, Button *button);
 
-void loseBall(Game *game);
+void checkBallLost(Game *game);
+
+int nearestBar(Game *game, Ball *ball);
+
+int checkEndGame(Game *game);
+
+void winner(Game *game);
+
+void winnerDraw(Game *game);
 
 #endif

@@ -109,7 +109,6 @@ void changeButtontexture(Button *button, int nbPlayers){
 	char string[1];
 	sprintf(string, "%d", nbPlayers);
 
-	printf("nbPlayers = %d\n", nbPlayers);
 	button->texture = newTexture("menu/", strcat(string, ".png"));
 }
 
