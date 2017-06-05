@@ -53,7 +53,7 @@ int createButtons(Menu *menu){
 	for(i=0; i<menu->nbButtons; i++){
 		if(i >= LEVEL && i < LEVEL+menu->level){
 			menu->buttons[i] = newButtonLevelTexture(LEVEL, menu->level, menu->base+menu->level-i-1);
-		}else if(i >= TEXTURE && i <= TEXTURE+menu->texture+1){
+		}else if(i >= LEVEL+menu->level && i <=  LEVEL+menu->level+menu->texture){
 			menu->buttons[i] = newButtonLevelTexture(TEXTURE, menu->texture, menu->base+menu->level+menu->texture-i-1);
 		}else{
 			menu->buttons[i] = newButton(i);

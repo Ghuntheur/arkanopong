@@ -256,6 +256,7 @@ void checkBallLost(Game *game){
 		 * Si la balle est perdue
 		 */
 		if(game->players[i].ball.lost == 1){
+			changePlayerBonusParam(&game->players[i], 0, BONUS_DROPPED);
 			/*
 			 * Si bonus invincible activé 
 			 */
@@ -301,8 +302,8 @@ int nearestBar(Game *game, Ball *ball){
 	int indice = start;
 
 	for(i=start; i<game->nbPlayers; i+=2){
-		if(fabs(game->players[i].bar.center.x - ball->center.x) < fabs(game->players[indice].bar.center.x - ball->center.x)){
-			indice = game->players[i].id;
+		if(isAlive(&game->players[i]) == EXIT_SUCCESS && fabs(game->players[i].bar.center.x - ball->center.x) < fabs(game->players[indice].bar.center.x - ball->center.x)){
+				indice = game->players[i].id;
 		}
 	}
 	return indice;

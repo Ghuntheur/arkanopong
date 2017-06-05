@@ -8,7 +8,7 @@ Player newPlayer(Ball ball, Bar bar, Control control, Texture textureLife, int i
 	p.control     = control;
 	p.textureLife = textureLife;
 	p.id          = id;
-	p.life        = 3;
+	p.life        = 2;
 	p.bonusActive = 0;
 	p.bonusType   = 0;
 

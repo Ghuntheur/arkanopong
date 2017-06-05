@@ -42,7 +42,7 @@ Box newBoxFromBonus(Bonus *bonus){
 
 void barCollide(Ball *ball, Bar *bar, int bonusType){
 	if(checkBarCollide(ball, bar) == EXIT_SUCCESS){
-		float angle = (ball->center.x - bar->center.x) / (bar->width / 2);
+		float angle = 2*(ball->center.x - bar->center.x) / (bar->width / 2);
 		ball->speed.x += angle;
 		ball->speed.y *= -1;
 	}
