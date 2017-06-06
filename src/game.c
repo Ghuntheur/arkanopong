@@ -9,7 +9,7 @@ Game newGame(){
 	g.nbPlayers = 2;
 	strcpy(g.level.name, "level/1.txt");
 	strcpy(g.textureFolder, "textures/1/");
-	
+
 	return g;
 }
 

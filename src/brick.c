@@ -5,7 +5,7 @@ Brick newBrick(int value, int width, int height, int i, int j, char *textureFold
 
 	b.life    = value/10;
 	
-	b.broken  = 0;
+	b.broken  = b.life == 0 ? 1 : 0;
 	
 	b.width  = WINDOW_WIDTH/width;
 	b.height = 20;

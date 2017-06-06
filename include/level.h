@@ -10,7 +10,7 @@
 
 typedef struct Level{
 	char name[100];
-	int width;
+	int width;	
 	int height;
 	Brick *bricks;
 	Texture texture;
